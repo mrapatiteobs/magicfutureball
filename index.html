@@ -94,13 +94,36 @@
         <br>
         <button onclick="saveUsername()">Submit</button>
 
-        <iframe 
-            src="https://docs.google.com/forms/d/e/1FAIpQLSfLHO-zR9WkadIPWodRewGir2PkoN-yL49iqIvG_k38yvGmig/viewform?embedded=true">
-            Loading…
-        </iframe>
-    </div>
 
-    <script>
+        <form id="emojiForm">
+  <p style="font-size: 1.2em; margin-bottom: 10px;">How are you feeling today?</p>
+  <div style="font-size: 2em; display: flex; gap: 15px; justify-content: center;">
+    <button type="button" onclick="submitResponse('😢')">😢</button>
+    <button type="button" onclick="submitResponse('😟')">😟</button>
+    <button type="button" onclick="submitResponse('😐')">😐</button>
+    <button type="button" onclick="submitResponse('🙂')">🙂</button>
+    <button type="button" onclick="submitResponse('🤩')">🤩</button>
+  </div>
+</form>
+
+<script>
+  function submitResponse(emoji) {
+    fetch('https://script.google.com/macros/s/AKfycbwAoeRrWPFfHJusjpnytDpkhHbeWH3az9PiQ9yKwN6USZMl5xC6ch-cUzQZtzqgLFE/exec', {
+      method: 'POST',
+      body: JSON.stringify({ answer: emoji }),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      alert('✅ Thank you for your response!');
+    })
+    .catch(error => {
+      alert('❌ Oops! Something went wrong.');
+      console.error(error);
+    });
+  }
+</script>
+
+          <script>
         function saveUsername() {
             const username = document.getElementById('usernameInput').value;
             if (username) {
