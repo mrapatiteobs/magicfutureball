@@ -21,62 +21,81 @@
         }
 
         header {
-            font-size: 3.5em;
+            font-size: 2.5em;
             color: #00ffcc;
             text-shadow: 3px 3px #ff00ff;
-            margin: 40px 0 20px;
+            margin: 30px 20px 20px;
             font-family: 'Orbitron', sans-serif;
             text-align: center;
             animation: pulse 2s infinite;
         }
 
         .content {
-            font-size: 1.3em;
+            font-size: 1.1em;
             text-align: center;
             background-color: rgba(0, 0, 0, 0.6);
-            padding: 30px;
+            padding: 20px;
             border-radius: 20px;
             box-shadow: 0 0 15px #00ffcc;
-            max-width: 700px;
-            margin: 0 auto 50px;
+            max-width: 90%;
+            margin: 0 auto 30px;
         }
 
         input[type="text"] {
             padding: 12px;
-            font-size: 1.1em;
+            font-size: 1em;
             margin-top: 10px;
             border: 2px solid #00ffcc;
             background-color: #0d0d0d;
             color: #ffffff;
             border-radius: 10px;
-            width: 80%;
+            width: 90%;
+            max-width: 400px;
         }
 
-        button {
-            padding: 12px 25px;
-            font-size: 1em;
+        .emoji-buttons {
+            font-size: 1.2em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
             margin-top: 15px;
-            cursor: pointer;
+        }
+
+        .emoji-buttons button {
+            padding: 8px 12px;
+            font-size: 0.95em;
             background-color: #0d0d0d;
             color: #00ffcc;
             border: 2px solid #00ffcc;
             border-radius: 10px;
+            width: 90%;
+            max-width: 300px;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        button:hover {
+        .emoji-buttons button:hover {
             background-color: #00ffcc;
             color: #0d0d0d;
             transform: scale(1.05);
         }
 
-        iframe {
-            margin-top: 30px;
-            border: none;
-            border-radius: 20px;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
-            width: 100%;
-            height: 450px;
+        .final-submit {
+            margin-top: 25px;
+            padding: 12px 25px;
+            font-size: 1em;
+            background-color: #0d0d0d;
+            color: #00ffcc;
+            border: 2px solid #00ffcc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .final-submit:hover {
+            background-color: #00ffcc;
+            color: #0d0d0d;
         }
 
         @keyframes pulse {
@@ -91,47 +110,48 @@
     <div class="content">
         <p>Please enter your name ✍️ :</p>
         <input type="text" id="usernameInput" placeholder="Your name">
-        <br>
-        <button onclick="saveUsername()">Submit</button>
-
 
         <form id="emojiForm">
-  <p style="font-size: 1.2em; margin-bottom: 10px;">Right now, what do you feel about your future?</p>
-  <div style="font-size: 2em; display: flex; gap: 15px; justify-content: center;">
-    <button type="button" onclick="submitResponse('😢')">😢 VERY WORRIED </button>
-    <button type="button" onclick="submitResponse('😟')">😟 UNCERTAIN </button>
-    <button type="button" onclick="submitResponse('😐')">😐 NEUTRAL </button>
-    <button type="button" onclick="submitResponse('🙂')">🙂 HAPPY </button>
-    <button type="button" onclick="submitResponse('🤩')">🤩 SUPER EXCITED </button>
-  </div>
-</form>
+            <p style="font-size: 1.2em; margin-top: 20px;">Right now, what do you feel about your future?</p>
+            <div class="emoji-buttons">
+                <button type="button" onclick="submitResponse('😢 VERY WORRIED')">😢 VERY WORRIED</button>
+                <button type="button" onclick="submitResponse('😟 UNCERTAIN')">😟 UNCERTAIN</button>
+                <button type="button" onclick="submitResponse('😐 NEUTRAL')">😐 NEUTRAL</button>
+                <button type="button" onclick="submitResponse('🙂 HAPPY')">🙂 HAPPY</button>
+                <button type="button" onclick="submitResponse('🤩 SUPER EXCITED')">🤩 SUPER EXCITED</button>
+            </div>
+        </form>
 
-<script>
-  function submitResponse(emoji) {
-    fetch('https://script.google.com/macros/s/AKfycbwAoeRrWPFfHJusjpnytDpkhHbeWH3az9PiQ9yKwN6USZMl5xC6ch-cUzQZtzqgLFE/exec', {
-      method: 'POST',
-      body: JSON.stringify({ answer: emoji }),
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then(response => {
-      alert('✅ Thank you for your response!');
-    })
-    .catch(error => {
-      alert('❌ Oops! Something went wrong.');
-      console.error(error);
-    });
-  }
-</script>
+        <button class="final-submit" onclick="saveUsername()">Submit</button>
+    </div>
 
-          <script>
+    <script>
+        let selectedEmoji = "";
+
+        function submitResponse(emoji) {
+            selectedEmoji = emoji;
+        }
+
         function saveUsername() {
             const username = document.getElementById('usernameInput').value;
-            if (username) {
+            if (username && selectedEmoji) {
                 localStorage.setItem('username', username);
-                alert(`Hi ${username}!`);
-                window.location.href = 'emoji.html';
+
+                fetch('https://script.google.com/macros/s/AKfycbwAoeRrWPFfHJusjpnytDpkhHbeWH3az9PiQ9yKwN6USZMl5xC6ch-cUzQZtzqgLFE/exec', {
+                    method: 'POST',
+                    body: JSON.stringify({ answer: selectedEmoji }),
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => {
+                    alert(`Hi ${username}! Thank you for your response.`);
+                    window.location.href = 'emoji.html';
+                })
+                .catch(error => {
+                    alert('❌ Oops! Something went wrong.');
+                    console.error(error);
+                });
             } else {
-                alert('Please enter your name.');
+                alert('Please enter your name and select an emoji.');
             }
         }
     </script>
