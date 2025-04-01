@@ -113,11 +113,11 @@
 
         <p style="font-size: 1.2em; margin-top: 20px;">Right now, what do you feel about your future?</p>
         <div class="emoji-buttons">
-            <button type="button" onclick="submitResponse('😢 VERY WORRIED')">😢 VERY WORRIED</button>
-            <button type="button" onclick="submitResponse('😟 UNCERTAIN')">😟 UNCERTAIN</button>
-            <button type="button" onclick="submitResponse('😐 NEUTRAL')">😐 NEUTRAL</button>
-            <button type="button" onclick="submitResponse('🙂 HAPPY')">🙂 HAPPY</button>
-            <button type="button" onclick="submitResponse('🤩 SUPER EXCITED')">🤩 SUPER EXCITED</button>
+            <button type="button" onclick="submitResponse(event, '😢 VERY WORRIED')">😢 VERY WORRIED</button>
+            <button type="button" onclick="submitResponse(event, '😟 UNCERTAIN')">😟 UNCERTAIN</button>
+            <button type="button" onclick="submitResponse(event, '😐 NEUTRAL')">😐 NEUTRAL</button>
+            <button type="button" onclick="submitResponse(event, '🙂 HAPPY')">🙂 HAPPY</button>
+            <button type="button" onclick="submitResponse(event, '🤩 SUPER EXCITED')">🤩 SUPER EXCITED</button>
         </div>
 
         <button class="final-submit" onclick="saveUsername()">Submit</button>
@@ -126,7 +126,7 @@
     <script>
         let selectedEmoji = "";
 
-        function submitResponse(emoji) {
+        function submitResponse(event, emoji) {
             selectedEmoji = emoji;
             const buttons = document.querySelectorAll('.emoji-buttons button');
             buttons.forEach(btn => btn.style.borderColor = '#00ffcc');
@@ -140,12 +140,17 @@
 
                 fetch('https://script.google.com/macros/s/AKfycbwAoeRrWPFfHJusjpnytDpkhHbeWH3az9PiQ9yKwN6USZMl5xC6ch-cUzQZtzqgLFE/exec', {
                     method: 'POST',
-                    body: JSON.stringify({ answer: selectedEmoji }),
+                    body: JSON.stringify({ username: username, answer: selectedEmoji }),
                     headers: { 'Content-Type': 'application/json' }
                 })
-                .then(response => {
-                    alert(`Hi ${username}! Thank you for your response.`);
-                    window.location.href = 'emoji.html';
+                .then(response => response.text())
+                .then(text => {
+                    if (text.includes("Success")) {
+                        alert(`Hi ${username}! Thank you for your response.`);
+                        window.location.href = 'emoji.html';
+                    } else {
+                        throw new Error(text);
+                    }
                 })
                 .catch(error => {
                     alert('❌ Oops! Something went wrong.');
