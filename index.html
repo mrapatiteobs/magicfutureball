@@ -54,7 +54,7 @@
         }
 
         .emoji-buttons {
-            font-size: 1.2em;
+            font-size: 1em;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -63,14 +63,14 @@
         }
 
         .emoji-buttons button {
-            padding: 8px 12px;
-            font-size: 0.95em;
+            padding: 6px 10px;
+            font-size: 0.9em;
             background-color: #0d0d0d;
             color: #00ffcc;
             border: 2px solid #00ffcc;
             border-radius: 10px;
             width: 90%;
-            max-width: 300px;
+            max-width: 250px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -111,16 +111,14 @@
         <p>Please enter your name ✍️ :</p>
         <input type="text" id="usernameInput" placeholder="Your name">
 
-        <form id="emojiForm">
-            <p style="font-size: 1.2em; margin-top: 20px;">Right now, what do you feel about your future?</p>
-            <div class="emoji-buttons">
-                <button type="button" onclick="submitResponse('😢 VERY WORRIED')">😢 VERY WORRIED</button>
-                <button type="button" onclick="submitResponse('😟 UNCERTAIN')">😟 UNCERTAIN</button>
-                <button type="button" onclick="submitResponse('😐 NEUTRAL')">😐 NEUTRAL</button>
-                <button type="button" onclick="submitResponse('🙂 HAPPY')">🙂 HAPPY</button>
-                <button type="button" onclick="submitResponse('🤩 SUPER EXCITED')">🤩 SUPER EXCITED</button>
-            </div>
-        </form>
+        <p style="font-size: 1.2em; margin-top: 20px;">Right now, what do you feel about your future?</p>
+        <div class="emoji-buttons">
+            <button type="button" onclick="submitResponse('😢 VERY WORRIED')">😢 VERY WORRIED</button>
+            <button type="button" onclick="submitResponse('😟 UNCERTAIN')">😟 UNCERTAIN</button>
+            <button type="button" onclick="submitResponse('😐 NEUTRAL')">😐 NEUTRAL</button>
+            <button type="button" onclick="submitResponse('🙂 HAPPY')">🙂 HAPPY</button>
+            <button type="button" onclick="submitResponse('🤩 SUPER EXCITED')">🤩 SUPER EXCITED</button>
+        </div>
 
         <button class="final-submit" onclick="saveUsername()">Submit</button>
     </div>
@@ -130,6 +128,9 @@
 
         function submitResponse(emoji) {
             selectedEmoji = emoji;
+            const buttons = document.querySelectorAll('.emoji-buttons button');
+            buttons.forEach(btn => btn.style.borderColor = '#00ffcc');
+            event.target.style.borderColor = '#ff00ff';
         }
 
         function saveUsername() {
