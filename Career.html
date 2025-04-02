@@ -3897,10 +3897,13 @@ document.addEventListener('DOMContentLoaded', () => {
         showMessage(selectedCareer);
     });
 
-    // Close popup event listener
-    document.getElementById('closePopup').addEventListener('click', () => {
-        document.getElementById('popupContainer').style.display = 'none';
-    });
+ document.getElementById('closePopup').addEventListener('click', () => {
+    document.getElementById('popupContainer').style.display = 'none';
+    setTimeout(() => {
+        window.location.href = "final.html";
+    }, 500); // optional delay (500ms) for smoother transition
+});
+
 });
 
 window.onload = function() {
