@@ -144,9 +144,10 @@
                     body: JSON.stringify({ username: username, answer: selectedEmoji }),
                     headers: { 'Content-Type': 'application/json' }
                 })
-                .then(response => response.text())
-                .then(text => {
-                    if (text.includes("Success")) {
+
+                    .then(response => response.json())
+.then(data => {
+    if (data.success) {
                         alert(`Hi ${username}! Thank you for your response.`);
                         window.location.href = 'emoji.html';
                     } else {
