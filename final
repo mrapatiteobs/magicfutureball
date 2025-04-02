@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Future Reflection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Orbitron', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url('https://raw.githubusercontent.com/mrapatiteobs/emojime/430b388dfab577cad50dbf9b3b61be7c740fb121/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      text-align: center;
+      padding: 0 5%;
+    }
+
+    h1 {
+      font-size: 1.5em;
+      color: #00ffcc;
+      text-shadow: 2px 2px 8px #ff00ff;
+      margin-bottom: 30px;
+      margin-top: 0;
+      line-height: 1.4;
+    }
+
+    .emoji-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .emoji-buttons button {
+      font-size: 2rem;
+      background: none;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.3s;
+    }
+
+    .emoji-buttons button:hover {
+      transform: scale(1.2);
+      border-color: #ff00ff;
+    }
+
+    input[type="text"] {
+      padding: 10px;
+      font-size: 1em;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: none;
+      width: 70%;
+      max-width: 300px;
+    }
+
+    button#submitBtn {
+      margin-top: 20px;
+      padding: 12px 25px;
+      font-size: 1em;
+      background-color: #ff00ff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 10px #ff00ff;
+    }
+
+    button#submitBtn:hover {
+      background-color: #cc00cc;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>
+    Now that you've seen a glimpse of the future... <br>
+    what comes to mind when you think about your future?
+  </h1>
+
+  <div class="emoji-buttons">
+    <button onclick="selectEmoji(event, '🤩 SUPER EXCITED')">🤩</button>
+    <button onclick="selectEmoji(event, '🙂 HAPPY')">🙂</button>
+    <button onclick="selectEmoji(event, '😐 NEUTRAL')">😐</button>
+    <button onclick="selectEmoji(event, '😟 UNCERTAIN')">😟</button>
+    <button onclick="selectEmoji(event, '😢 VERY WORRIED')">😢</button>
+  </div>
+
+  <input type="text" id="usernameInput" placeholder="Enter your name..." />
+  <br>
+  <button id="submitBtn" onclick="submitFeeling()">Submit</button>
+
+  <script>
+    let selectedEmoji = "";
+
+    function selectEmoji(event, feeling) {
+      selectedEmoji = feeling;
+      const buttons = document.querySelectorAll('.emoji-buttons button');
+      buttons.forEach(btn => btn.style.borderColor = '#00ffcc');
+      event.target.style.borderColor = '#ff00ff';
+    }
+
+    function submitFeeling() {
+      const username = document.getElementById('usernameInput').value;
+
+      if (!username || !selectedEmoji) {
+        alert("Please enter your name and select an emoji.");
+        return;
+      }
+
+      localStorage.setItem('username', username);
+
+      fetch("https://magicfutureball-api.vercel.app/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: username, answer: selectedEmoji })
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
+            // You can redirect to a "thank you" page if you want
+          } else {
+            alert("❌ Oops! Something went wrong.");
+          }
+        })
+        .catch(error => {
+          console.error(error);
+          alert("❌ Submission failed. Please try again.");
+        });
+    }
+  </script>
+
+</body>
+</html>
