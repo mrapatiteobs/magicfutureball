@@ -57,16 +57,6 @@
       border-color: #ff00ff;
     }
 
-    input[type="text"] {
-      padding: 10px;
-      font-size: 1em;
-      margin-top: 20px;
-      border-radius: 10px;
-      border: none;
-      width: 70%;
-      max-width: 300px;
-    }
-
     button#submitBtn {
       margin-top: 20px;
       padding: 12px 25px;
@@ -100,8 +90,6 @@
     <button onclick="selectEmoji(event, '😢 VERY WORRIED')">😢</button>
   </div>
 
-  <input type="text" id="usernameInput" placeholder="Enter your name..." />
-  <br>
   <button id="submitBtn" onclick="submitFeeling()">Submit</button>
 
   <script>
@@ -115,14 +103,12 @@
     }
 
     function submitFeeling() {
-      const username = document.getElementById('usernameInput').value;
+      const username = localStorage.getItem("username");
 
       if (!username || !selectedEmoji) {
-        alert("Please enter your name and select an emoji.");
+        alert("Please select how you feel about your future.");
         return;
       }
-
-      localStorage.setItem('username', username);
 
       fetch("https://magicfutureball-api.vercel.app/api/submit", {
         method: "POST",
@@ -133,7 +119,6 @@
         .then(data => {
           if (data.success) {
             alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
-            // You can redirect to a "thank you" page if you want
           } else {
             alert("❌ Oops! Something went wrong.");
           }
@@ -143,6 +128,13 @@
           alert("❌ Submission failed. Please try again.");
         });
     }
+
+    window.onload = function() {
+      const username = localStorage.getItem("username");
+      if (!username) {
+        window.location.href = "index.html"; // Redirect if no username found
+      }
+    };
   </script>
 
 </body>
