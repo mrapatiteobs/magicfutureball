@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to the Future</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://www.google.com/recaptcha/api.js?render=6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     html, body {
       background: linear-gradient(to bottom, #000000, #0d0d0d, #1a1a1a);
@@ -184,7 +184,10 @@
       </button>
     </div>
 
-    <button class="final-submit" onclick="saveUsername()">Submit</button>
+    <form id="emojiForm" onsubmit="submitForm(event)">
+      <div class="g-recaptcha" data-sitekey="6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw"></div>
+      <button type="submit" class="final-submit">Submit</button>
+    </form>
   </div>
 
   <script>
@@ -197,40 +200,44 @@
       button.classList.add('selected');
     }
 
-    function saveUsername() {
+    function submitForm(event) {
+      event.preventDefault();
       const username = document.getElementById('usernameInput').value;
+
       if (!username || !selectedEmoji) {
         alert('Please enter your name and select an emoji.');
         return;
       }
 
-      grecaptcha.ready(function () {
-        grecaptcha.execute('6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw', { action: 'submit' }).then(function (token) {
-          localStorage.setItem('username', username);
+      const token = grecaptcha.getResponse();
+      if (!token) {
+        alert('Please complete the CAPTCHA.');
+        return;
+      }
 
-          fetch('https://magicfutureball-api.vercel.app/api/submit', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              username: username,
-              answer: selectedEmoji,
-              'g-recaptcha-response': token
-            })
-          })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              alert(`Hi ${username}! Thank you for your response.`);
-              window.location.href = 'emoji.html';
-            } else {
-              alert(data.message || '❌ reCAPTCHA failed or something went wrong.');
-            }
-          })
-          .catch(error => {
-            alert('❌ Oops! Something went wrong.');
-            console.error(error);
-          });
-        });
+      localStorage.setItem('username', username);
+
+      fetch('https://magicfutureball-api.vercel.app/api/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: username,
+          answer: selectedEmoji,
+          'g-recaptcha-response': token
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert(`Hi ${username}! Thank you for your response.`);
+          window.location.href = 'emoji.html';
+        } else {
+          alert(data.message || '❌ reCAPTCHA failed or something went wrong.');
+        }
+      })
+      .catch(error => {
+        alert('❌ Oops! Something went wrong.');
+        console.error(error);
       });
     }
   </script>
