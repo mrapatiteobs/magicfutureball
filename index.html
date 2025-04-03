@@ -2,108 +2,132 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to the Future</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://www.google.com/recaptcha/api.js?render=6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw"></script>
   <style>
-    /* [same styles, unchanged] */
     html, body {
-      background-color: #0d0d0d;
+      background: linear-gradient(to bottom, #000000, #0d0d0d, #1a1a1a);
       color: #ffffff;
       font-family: 'Exo', sans-serif;
       margin: 0;
       padding: 0;
-      background-image: url('https://raw.githubusercontent.com/mrapatiteobs/emojime/430b388dfab577cad50dbf9b3b61be7c740fb121/background.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;
-      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
     header {
-      font-size: 2.5em;
-      color: #00ffcc;
-      text-shadow: 3px 3px #ff00ff;
-      margin: 30px 20px 20px;
+      font-size: 3em;
+      color: #00fff2;
+      text-shadow: 0 0 15px #ff00ff;
+      margin: 50px 20px 30px;
       font-family: 'Orbitron', sans-serif;
       text-align: center;
-      animation: pulse 2s infinite;
+      animation: neon-glow 2s infinite alternate;
     }
 
     .content {
-      font-size: 1.1em;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.6);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 15px #00ffcc;
-      max-width: 90%;
-      margin: 0 auto 30px;
-    }
-
-    input[type="text"] {
-      padding: 12px;
-      font-size: 1em;
-      margin-top: 10px;
-      border: 2px solid #00ffcc;
-      background-color: #0d0d0d;
-      color: #ffffff;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 400px;
-    }
-
-    .emoji-buttons {
-      font-size: 1em;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 30px;
+      box-shadow: 0 0 30px #00fff2;
+      width: 95%;
+      max-width: 900px;
+      margin: 0 auto 60px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
-      margin-top: 15px;
+    }
+
+    input[type="text"] {
+      padding: 15px;
+      font-size: 1.2em;
+      margin-top: 10px;
+      border: 2px solid #00fff2;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px #00fff2;
+    }
+
+    .emoji-buttons {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 30px;
+      width: 100%;
     }
 
     .emoji-buttons button {
-      padding: 6px 10px;
-      font-size: 0.9em;
-      background-color: #0d0d0d;
-      color: #00ffcc;
-      border: 2px solid #00ffcc;
-      border-radius: 10px;
-      width: 90%;
-      max-width: 250px;
+      padding: 10px;
+      background-color: #111;
+      color: #00fff2;
+      border: 2px solid #00fff2;
+      border-radius: 16px;
       cursor: pointer;
       transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00fff2;
+      width: 150px;
+      height: 150px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 1em;
+    }
+
+    .emoji-buttons button span.emoji {
+      font-size: 2.2em;
+      margin-bottom: 5px;
+      transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    .emoji-buttons button:hover span.emoji {
+      transform: scale(1.3) rotate(5deg);
+      filter: drop-shadow(0 0 10px #ff00ff);
+    }
+
+    .emoji-buttons button span.text {
+      font-size: 0.7em;
+      line-height: 1.2;
     }
 
     .emoji-buttons button:hover {
-      background-color: #00ffcc;
-      color: #0d0d0d;
+      background-color: #00fff2;
+      color: #111;
       transform: scale(1.05);
     }
 
     .final-submit {
-      margin-top: 25px;
-      padding: 12px 25px;
-      font-size: 1em;
-      background-color: #0d0d0d;
-      color: #00ffcc;
-      border: 2px solid #00ffcc;
-      border-radius: 10px;
+      margin-top: 35px;
+      padding: 14px 30px;
+      font-size: 1.1em;
+      background-color: transparent;
+      color: #00fff2;
+      border: 2px solid #00fff2;
+      border-radius: 15px;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 15px #00fff2;
     }
 
     .final-submit:hover {
-      background-color: #00ffcc;
-      color: #0d0d0d;
+      background-color: #00fff2;
+      color: #111;
+      transform: scale(1.05);
     }
 
-    @keyframes pulse {
-      0% { text-shadow: 3px 3px #ff00ff; }
-      50% { text-shadow: 3px 3px #00ffcc; }
-      100% { text-shadow: 3px 3px #ff00ff; }
+    @keyframes neon-glow {
+      0% {
+        text-shadow: 0 0 15px #ff00ff, 0 0 5px #00fff2;
+      }
+      100% {
+        text-shadow: 0 0 25px #00fff2, 0 0 10px #ff00ff;
+      }
     }
   </style>
 </head>
@@ -113,13 +137,28 @@
     <p>Let me know your name ✍️ :</p>
     <input type="text" id="usernameInput" placeholder="Your name">
 
-    <p style="font-size: 1.2em; margin-top: 20px;">Right now, what do you feel about your future?</p>
+    <p style="font-size: 1.3em; margin-top: 30px;">What do you feel about your future?</p>
     <div class="emoji-buttons">
-      <button type="button" onclick="submitResponse(event, '😢 VERY WORRIED')">😢 Very worried, AI's going to take all our jobs </button>
-      <button type="button" onclick="submitResponse(event, '😟 UNCERTAIN')">😟 Uncertain, I'm not sure what I want to do ..</button>
-      <button type="button" onclick="submitResponse(event, '😐 NEUTRAL')">😐 Neutral, I think nothing's going to change</button>
-      <button type="button" onclick="submitResponse(event, '🙂 HAPPY')">🙂 Happy, everything's gonna be okay </button>
-      <button type="button" onclick="submitResponse(event, '🤩 SUPER EXCITED')">🤩 Super Excited, the future's going to be so amazing!</button>
+      <button type="button" onclick="submitResponse(event, '😢 VERY WORRIED')">
+        <span class="emoji">😢</span>
+        <span class="text">Very worried<br>AI's going to take all our jobs</span>
+      </button>
+      <button type="button" onclick="submitResponse(event, '😟 UNCERTAIN')">
+        <span class="emoji">😟</span>
+        <span class="text">Uncertain<br>I'm not sure what I want to do</span>
+      </button>
+      <button type="button" onclick="submitResponse(event, '😐 NEUTRAL')">
+        <span class="emoji">😐</span>
+        <span class="text">Neutral<br>I think nothing's going to change</span>
+      </button>
+      <button type="button" onclick="submitResponse(event, '🙂 HAPPY')">
+        <span class="emoji">🙂</span>
+        <span class="text">Happy<br>Everything's gonna be okay</span>
+      </button>
+      <button type="button" onclick="submitResponse(event, '🤩 SUPER EXCITED')">
+        <span class="emoji">🤩</span>
+        <span class="text">Super Excited<br>The future's going to be amazing!</span>
+      </button>
     </div>
 
     <button class="final-submit" onclick="saveUsername()">Submit</button>
@@ -131,7 +170,7 @@
     function submitResponse(event, emoji) {
       selectedEmoji = emoji;
       const buttons = document.querySelectorAll('.emoji-buttons button');
-      buttons.forEach(btn => btn.style.borderColor = '#00ffcc');
+      buttons.forEach(btn => btn.style.borderColor = '#00fff2');
       event.target.style.borderColor = '#ff00ff';
     }
 
