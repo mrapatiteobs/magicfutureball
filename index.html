@@ -1,167 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to the Future</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        html, body {
-            background-color: #0d0d0d;
-            color: #ffffff;
-            font-family: 'Exo', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('https://raw.githubusercontent.com/mrapatiteobs/emojime/430b388dfab577cad50dbf9b3b61be7c740fb121/background.jpg');
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            scroll-behavior: smooth;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to the Future</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw"></script>
+  <style>
+    /* [same styles, unchanged] */
+    html, body {
+      background-color: #0d0d0d;
+      color: #ffffff;
+      font-family: 'Exo', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('https://raw.githubusercontent.com/mrapatiteobs/emojime/430b388dfab577cad50dbf9b3b61be7c740fb121/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      scroll-behavior: smooth;
+    }
 
-        header {
-            font-size: 2.5em;
-            color: #00ffcc;
-            text-shadow: 3px 3px #ff00ff;
-            margin: 30px 20px 20px;
-            font-family: 'Orbitron', sans-serif;
-            text-align: center;
-            animation: pulse 2s infinite;
-        }
+    header {
+      font-size: 2.5em;
+      color: #00ffcc;
+      text-shadow: 3px 3px #ff00ff;
+      margin: 30px 20px 20px;
+      font-family: 'Orbitron', sans-serif;
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
 
-        .content {
-            font-size: 1.1em;
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.6);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 15px #00ffcc;
-            max-width: 90%;
-            margin: 0 auto 30px;
-        }
+    .content {
+      font-size: 1.1em;
+      text-align: center;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #00ffcc;
+      max-width: 90%;
+      margin: 0 auto 30px;
+    }
 
-        input[type="text"] {
-            padding: 12px;
-            font-size: 1em;
-            margin-top: 10px;
-            border: 2px solid #00ffcc;
-            background-color: #0d0d0d;
-            color: #ffffff;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-        }
+    input[type="text"] {
+      padding: 12px;
+      font-size: 1em;
+      margin-top: 10px;
+      border: 2px solid #00ffcc;
+      background-color: #0d0d0d;
+      color: #ffffff;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
 
-        .emoji-buttons {
-            font-size: 1em;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin-top: 15px;
-        }
+    .emoji-buttons {
+      font-size: 1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
 
-        .emoji-buttons button {
-            padding: 6px 10px;
-            font-size: 0.9em;
-            background-color: #0d0d0d;
-            color: #00ffcc;
-            border: 2px solid #00ffcc;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 250px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .emoji-buttons button {
+      padding: 6px 10px;
+      font-size: 0.9em;
+      background-color: #0d0d0d;
+      color: #00ffcc;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 250px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-        .emoji-buttons button:hover {
-            background-color: #00ffcc;
-            color: #0d0d0d;
-            transform: scale(1.05);
-        }
+    .emoji-buttons button:hover {
+      background-color: #00ffcc;
+      color: #0d0d0d;
+      transform: scale(1.05);
+    }
 
-        .final-submit {
-            margin-top: 25px;
-            padding: 12px 25px;
-            font-size: 1em;
-            background-color: #0d0d0d;
-            color: #00ffcc;
-            border: 2px solid #00ffcc;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+    .final-submit {
+      margin-top: 25px;
+      padding: 12px 25px;
+      font-size: 1em;
+      background-color: #0d0d0d;
+      color: #00ffcc;
+      border: 2px solid #00ffcc;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-        .final-submit:hover {
-            background-color: #00ffcc;
-            color: #0d0d0d;
-        }
+    .final-submit:hover {
+      background-color: #00ffcc;
+      color: #0d0d0d;
+    }
 
-        @keyframes pulse {
-            0% { text-shadow: 3px 3px #ff00ff; }
-            50% { text-shadow: 3px 3px #00ffcc; }
-            100% { text-shadow: 3px 3px #ff00ff; }
-        }
-    </style>
+    @keyframes pulse {
+      0% { text-shadow: 3px 3px #ff00ff; }
+      50% { text-shadow: 3px 3px #00ffcc; }
+      100% { text-shadow: 3px 3px #ff00ff; }
+    }
+  </style>
 </head>
 <body>
-    <header>Welcome to the Future</header>
-    <div class="content">
-        <p>Please enter your name ✍️ :</p>
-        <input type="text" id="usernameInput" placeholder="Your name">
+  <header>Welcome to the Future</header>
+  <div class="content">
+    <p>Please enter your name ✍️ :</p>
+    <input type="text" id="usernameInput" placeholder="Your name">
 
-        <p style="font-size: 1.2em; margin-top: 20px;">Right now, what do you feel about your future?</p>
-        <div class="emoji-buttons">
-            <button type="button" onclick="submitResponse(event, '😢 VERY WORRIED')">😢 Very worried, AI's going to take all our jobs </button>
-            <button type="button" onclick="submitResponse(event, '😟 UNCERTAIN')">😟 Uncertain, I'm not sure what I want to do ..</button>
-            <button type="button" onclick="submitResponse(event, '😐 NEUTRAL')">😐 Neutral, I think nothing's going to change</button>
-            <button type="button" onclick="submitResponse(event, '🙂 HAPPY')">🙂 Happy, everything's gonna be okay </button>
-            <button type="button" onclick="submitResponse(event, '🤩 SUPER EXCITED')">🤩 Super Excited, the future's going to be so amazing!</button>
-        </div>
-
-        <button class="final-submit" onclick="saveUsername()">Submit</button>
+    <p style="font-size: 1.2em; margin-top: 20px;">Right now, what do you feel about your future?</p>
+    <div class="emoji-buttons">
+      <button type="button" onclick="submitResponse(event, '😢 VERY WORRIED')">😢 Very worried, AI's going to take all our jobs </button>
+      <button type="button" onclick="submitResponse(event, '😟 UNCERTAIN')">😟 Uncertain, I'm not sure what I want to do ..</button>
+      <button type="button" onclick="submitResponse(event, '😐 NEUTRAL')">😐 Neutral, I think nothing's going to change</button>
+      <button type="button" onclick="submitResponse(event, '🙂 HAPPY')">🙂 Happy, everything's gonna be okay </button>
+      <button type="button" onclick="submitResponse(event, '🤩 SUPER EXCITED')">🤩 Super Excited, the future's going to be so amazing!</button>
     </div>
 
-    <script>
-        let selectedEmoji = "";
+    <button class="final-submit" onclick="saveUsername()">Submit</button>
+  </div>
 
-        function submitResponse(event, emoji) {
-            selectedEmoji = emoji;
-            const buttons = document.querySelectorAll('.emoji-buttons button');
-            buttons.forEach(btn => btn.style.borderColor = '#00ffcc');
-            event.target.style.borderColor = '#ff00ff';
-        }
+  <script>
+    let selectedEmoji = "";
 
-        function saveUsername() {
-            const username = document.getElementById('usernameInput').value;
-            if (username && selectedEmoji) {
-                localStorage.setItem('username', username);
+    function submitResponse(event, emoji) {
+      selectedEmoji = emoji;
+      const buttons = document.querySelectorAll('.emoji-buttons button');
+      buttons.forEach(btn => btn.style.borderColor = '#00ffcc');
+      event.target.style.borderColor = '#ff00ff';
+    }
 
-                fetch('https://magicfutureball-api.vercel.app/api/submit', { // ✅ your Vercel function
+    function saveUsername() {
+      const username = document.getElementById('usernameInput').value;
+      if (!username || !selectedEmoji) {
+        alert('Please enter your name and select an emoji.');
+        return;
+      }
 
-                    method: 'POST',
-                    body: JSON.stringify({ username: username, answer: selectedEmoji }),
-                    headers: { 'Content-Type': 'application/json' }
-                })
+      grecaptcha.ready(function () {
+        grecaptcha.execute('6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw', { action: 'submit' }).then(function (token) {
+          localStorage.setItem('username', username);
 
-                    .then(response => response.json())
-.then(data => {
-    if (data.success) {
-                        alert(`Hi ${username}! Thank you for your response.`);
-                        window.location.href = 'emoji.html';
-                    } else {
-                        throw new Error(text);
-                    }
-                })
-                .catch(error => {
-                    alert('❌ Oops! Something went wrong.');
-                    console.error(error);
-                });
+          fetch('https://magicfutureball-api.vercel.app/api/submit', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              username: username,
+              answer: selectedEmoji,
+              'g-recaptcha-response': token
+            })
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(`Hi ${username}! Thank you for your response.`);
+              window.location.href = 'emoji.html';
             } else {
-                alert('Please enter your name and select an emoji.');
+              alert(data.message || '❌ reCAPTCHA failed or something went wrong.');
             }
-        }
-    </script>
+          })
+          .catch(error => {
+            alert('❌ Oops! Something went wrong.');
+            console.error(error);
+          });
+        });
+      });
+    }
+  </script>
 </body>
 </html>
