@@ -119,12 +119,6 @@
       transform: scale(1.05);
     }
 
-    .g-recaptcha {
-      margin-top: 10px;
-      transform: scale(0.88);
-      transform-origin: center;
-    }
-
     @keyframes neon-glow {
       0% {
         text-shadow: 0 0 15px #ff00ff, 0 0 5px #00fff2;
@@ -142,10 +136,6 @@
       .final-submit {
         font-size: 0.9em;
         padding: 8px 16px;
-      }
-
-      .g-recaptcha {
-        transform: scale(0.75);
       }
     }
   </style>
@@ -180,9 +170,14 @@
       </button>
     </div>
 
-    <form id="emojiForm" onsubmit="submitForm(event)">
-      <div class="g-recaptcha" data-sitekey="6LdkUwgrAAAAADPeb5duyMv1PgJFZNdXs6NDjrz2"></div>
-      <button type="submit" class="final-submit">Submit</button>
+    <form id="emojiForm">
+      <button
+        class="final-submit g-recaptcha"
+        data-sitekey="6LfSXAgrAAAAANmwG7nYzueVEb_R58VELENF7n8S"
+        data-callback="onSubmit"
+      >
+        Submit
+      </button>
     </form>
   </div>
 
@@ -196,18 +191,11 @@
       button.classList.add('selected');
     }
 
-    function submitForm(event) {
-      event.preventDefault();
+    function onSubmit(token) {
       const username = document.getElementById('usernameInput').value;
 
       if (!username || !selectedEmoji) {
         alert('Please enter your name and select an emoji.');
-        return;
-      }
-
-      const token = grecaptcha.getResponse();
-      if (!token) {
-        alert('Please complete the CAPTCHA.');
         return;
       }
 
