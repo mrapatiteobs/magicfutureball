@@ -228,5 +228,10 @@
       });
     }
   </script>
+  document.getElementById('emojiForm').addEventListener('submit', function (e) {
+  e.preventDefault();
+  grecaptcha.execute();
+});
+
 </body>
 </html>
