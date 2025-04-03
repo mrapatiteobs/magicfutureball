@@ -139,23 +139,23 @@
 
     <p style="font-size: 1.3em; margin-top: 30px;">What do you feel about your future?</p>
     <div class="emoji-buttons">
-      <button type="button" onclick="submitResponse(event, '😢 VERY WORRIED')">
+      <button type="button" onclick="submitResponse(event.currentTarget, '😢 VERY WORRIED')">
         <span class="emoji">😢</span>
         <span class="text">Very worried<br>AI's going to take all our jobs</span>
       </button>
-      <button type="button" onclick="submitResponse(event, '😟 UNCERTAIN')">
+      <button type="button" onclick="submitResponse(event.currentTarget, '😟 UNCERTAIN')">
         <span class="emoji">😟</span>
         <span class="text">Uncertain<br>I'm not sure what I want to do</span>
       </button>
-      <button type="button" onclick="submitResponse(event, '😐 NEUTRAL')">
+      <button type="button" onclick="submitResponse(event.currentTarget, '😐 NEUTRAL')">
         <span class="emoji">😐</span>
         <span class="text">Neutral<br>I think nothing's going to change</span>
       </button>
-      <button type="button" onclick="submitResponse(event, '🙂 HAPPY')">
+      <button type="button" onclick="submitResponse(event.currentTarget, '🙂 HAPPY')">
         <span class="emoji">🙂</span>
         <span class="text">Happy<br>Everything's gonna be okay</span>
       </button>
-      <button type="button" onclick="submitResponse(event, '🤩 SUPER EXCITED')">
+      <button type="button" onclick="submitResponse(event.currentTarget, '🤩 SUPER EXCITED')">
         <span class="emoji">🤩</span>
         <span class="text">Super Excited<br>The future's going to be amazing!</span>
       </button>
@@ -167,11 +167,11 @@
   <script>
     let selectedEmoji = "";
 
-    function submitResponse(event, emoji) {
+    function submitResponse(button, emoji) {
       selectedEmoji = emoji;
       const buttons = document.querySelectorAll('.emoji-buttons button');
       buttons.forEach(btn => btn.style.borderColor = '#00fff2');
-      event.target.style.borderColor = '#ff00ff';
+      button.style.borderColor = '#ff00ff';
     }
 
     function saveUsername() {
