@@ -17,10 +17,10 @@
     }
 
     header {
-      font-size: 3em;
+      font-size: 2.2em;
       color: #00fff2;
       text-shadow: 0 0 15px #ff00ff;
-      margin: 50px 20px 30px;
+      margin: 40px 20px 20px;
       font-family: 'Orbitron', sans-serif;
       text-align: center;
       animation: neon-glow 2s infinite alternate;
@@ -28,10 +28,10 @@
 
     .content {
       background: rgba(0, 0, 0, 0.7);
-      padding: 40px;
+      padding: 30px;
       border-radius: 30px;
       box-shadow: 0 0 30px #00fff2;
-      width: 95%;
+      width: 90%;
       max-width: 900px;
       margin: 0 auto 60px;
       display: flex;
@@ -41,7 +41,7 @@
 
     input[type="text"] {
       padding: 15px;
-      font-size: 1.2em;
+      font-size: 1em;
       margin-top: 10px;
       border: 2px solid #00fff2;
       background-color: #1a1a1a;
@@ -56,7 +56,7 @@
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      gap: 20px;
+      gap: 15px;
       margin-top: 30px;
       width: 100%;
     }
@@ -70,14 +70,15 @@
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 0 10px #00fff2;
-      width: 150px;
-      height: 150px;
+      width: 42vw;
+      max-width: 150px;
+      height: 140px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: 1em;
+      font-size: 0.95em;
     }
 
     .emoji-buttons button.selected {
@@ -85,7 +86,7 @@
     }
 
     .emoji-buttons button span.emoji {
-      font-size: 2.2em;
+      font-size: 2em;
       margin-bottom: 5px;
       transition: transform 0.4s ease, filter 0.4s ease;
     }
@@ -107,9 +108,9 @@
     }
 
     .final-submit {
-      margin-top: 35px;
-      padding: 14px 30px;
-      font-size: 1.1em;
+      margin-top: 30px;
+      padding: 14px 25px;
+      font-size: 1em;
       background-color: transparent;
       color: #00fff2;
       border: 2px solid #00fff2;
@@ -133,6 +134,24 @@
         text-shadow: 0 0 25px #00fff2, 0 0 10px #ff00ff;
       }
     }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.8em;
+        margin: 30px 10px 20px;
+      }
+
+      .emoji-buttons button {
+        width: 100%;
+        max-width: none;
+        height: auto;
+        padding: 12px;
+      }
+
+      .emoji-buttons {
+        gap: 10px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -141,7 +160,7 @@
     <p>Let me know your name ✍️ :</p>
     <input type="text" id="usernameInput" placeholder="Your name">
 
-    <p style="font-size: 1.3em; margin-top: 30px;">What do you feel about your future?</p>
+    <p style="font-size: 1.2em; margin-top: 30px; text-align: center;">What do you feel about your future?</p>
     <div class="emoji-buttons">
       <button type="button" onclick="submitResponse(event.currentTarget, '😢 VERY WORRIED')">
         <span class="emoji">😢</span>
