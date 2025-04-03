@@ -171,17 +171,70 @@
       </button>
     </div>
 
-    <form id="emojiForm">
-      <button
-        class="final-submit g-recaptcha"
-        data-sitekey="6LfSXAgrAAAAANmwG7nYzueVEb_R58VELENF7n8S"
-        data-callback="onSubmit"
-      >
-        Submit
-      </button>
-    </form>
+<form id="emojiForm">
+  <button id="submit-button" class="final-submit">
+    Submit
+  </button>
+</form>
   </div>
 
+<script>
+  let selectedEmoji = "";
+
+  function submitResponse(button, emoji) {
+    selectedEmoji = emoji;
+    const buttons = document.querySelectorAll('.emoji-buttons button');
+    buttons.forEach(btn => btn.classList.remove('selected'));
+    button.classList.add('selected');
+  }
+
+  // Renders invisible reCAPTCHA explicitly
+  function onloadCallback() {
+    grecaptcha.render('submit-button', {
+      sitekey: '6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw',
+      callback: onSubmit,
+      size: 'invisible'
+    });
+  }
+
+  function onSubmit(token) {
+    const username = document.getElementById('usernameInput').value;
+
+    if (!username || !selectedEmoji) {
+      alert('Please enter your name and select an emoji.');
+      return;
+    }
+
+    localStorage.setItem('username', username);
+
+    fetch('https://magicfutureball-api.vercel.app/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: username,
+        answer: selectedEmoji,
+        'g-recaptcha-response': token
+      })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(`Hi ${username}! Thank you for your response.`);
+        window.location.href = 'emoji.html';
+      } else {
+        grecaptcha.reset(); // allow retry
+        alert(data.message || '❌ reCAPTCHA failed or something went wrong.');
+      }
+    })
+    .catch(error => {
+      alert('❌ Oops! Something went wrong.');
+      console.error(error);
+    });
+  }
+</script>
+
+
+  
   <script>
     let selectedEmoji = "";
 
