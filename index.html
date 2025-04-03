@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -7,6 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 
+  
   <style>
     html, body {
       height: 100%;
@@ -197,6 +200,15 @@
     });
   }
 
+function onloadCallback() {
+  grecaptcha.render('recaptcha-button', {
+    sitekey: '6LdVLAgrAAAAAE9e_X4YQjmPkbGykwrgoHnRoeCw', // ✅ Use your actual site key
+    callback: onSubmit,
+    size: 'invisible'
+  });
+}
+
+  
   function onSubmit(token) {
     const username = document.getElementById('usernameInput').value;
 
@@ -231,6 +243,13 @@
       console.error(error);
     });
   }
+
+
+  if (!data.success) {
+  grecaptcha.reset(); // 🔁 allow user to retry
+  alert(data.message || '❌ reCAPTCHA failed or something went wrong.');
+}
+
 </script>
 
 
@@ -280,4 +299,11 @@
     }
   </script>
 </body>
+
+    <button
+  id="recaptcha-button"
+  class="final-submit"
+>
+  Submit
+</button>
 </html>
