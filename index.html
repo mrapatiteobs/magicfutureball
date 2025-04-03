@@ -80,6 +80,10 @@
       font-size: 1em;
     }
 
+    .emoji-buttons button.selected {
+      border-color: #ff00ff !important;
+    }
+
     .emoji-buttons button span.emoji {
       font-size: 2.2em;
       margin-bottom: 5px;
@@ -170,8 +174,8 @@
     function submitResponse(button, emoji) {
       selectedEmoji = emoji;
       const buttons = document.querySelectorAll('.emoji-buttons button');
-      buttons.forEach(btn => btn.style.borderColor = '#00fff2');
-      button.style.borderColor = '#ff00ff';
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      button.classList.add('selected');
     }
 
     function saveUsername() {
