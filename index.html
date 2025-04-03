@@ -119,6 +119,10 @@
       transform: scale(1.05);
     }
 
+    #recaptcha-container {
+      display: none;
+    }
+
     @keyframes neon-glow {
       0% {
         text-shadow: 0 0 15px #ff00ff, 0 0 5px #00fff2;
@@ -171,7 +175,8 @@
     </div>
 
     <form id="emojiForm">
-      <button id="recaptcha-button" class="final-submit">Submit</button>
+      <div id="recaptcha-container"></div>
+      <button type="submit" class="final-submit">Submit</button>
     </form>
   </div>
 
@@ -186,7 +191,7 @@
     }
 
     function onloadCallback() {
-      grecaptcha.render('recaptcha-button', {
+      grecaptcha.render('recaptcha-container', {
         sitekey: '6LfSXAgrAAAAANmwG7nYzueVEb_R58VELENF7n8S',
         callback: onSubmit,
         size: 'invisible'
@@ -227,11 +232,12 @@
         console.error(error);
       });
     }
-  </script>
-  document.getElementById('emojiForm').addEventListener('submit', function (e) {
-  e.preventDefault();
-  grecaptcha.execute();
-});
 
+    // ✅ Trigger invisible reCAPTCHA on form submit
+    document.getElementById('emojiForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      grecaptcha.execute();
+    });
+  </script>
 </body>
 </html>
