@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Future Reflection</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+  <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
   <style>
     body {
       background-color: #0d0d0d;
@@ -57,6 +58,11 @@
       border-color: #ff00ff;
     }
 
+    .emoji-buttons button.selected {
+      border-color: #ff00ff !important;
+      transform: scale(1.2);
+    }
+
     button#submitBtn {
       margin-top: 20px;
       padding: 12px 25px;
@@ -72,7 +78,6 @@
     button#submitBtn:hover {
       background-color: #cc00cc;
     }
-
   </style>
 </head>
 <body>
@@ -90,6 +95,7 @@
     <button onclick="selectEmoji(event, '😢 VERY WORRIED')">😢</button>
   </div>
 
+  <div id="recaptcha-container"></div>
   <button id="submitBtn" onclick="submitFeeling()">Submit</button>
 
   <script>
@@ -98,8 +104,16 @@
     function selectEmoji(event, feeling) {
       selectedEmoji = feeling;
       const buttons = document.querySelectorAll('.emoji-buttons button');
-      buttons.forEach(btn => btn.style.borderColor = '#00ffcc');
-      event.target.style.borderColor = '#ff00ff';
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      event.target.classList.add('selected');
+    }
+
+    function onloadCallback() {
+      grecaptcha.render('recaptcha-container', {
+        sitekey: '6LdyxQorAAAAAGYPaNqj_1wX1ukBmyG13fp70z6r', // 🔁 Replace with your actual site key
+        size: 'invisible',
+        callback: onSubmit
+      });
     }
 
     function submitFeeling() {
@@ -110,17 +124,28 @@
         return;
       }
 
+      grecaptcha.execute(); // ⏩ triggers invisible reCAPTCHA
+    }
+
+    function onSubmit(token) {
+      const username = localStorage.getItem("username");
+
       fetch("https://magicfutureball-api.vercel.app/api/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username: username, answer: selectedEmoji })
+        body: JSON.stringify({
+          username: username,
+          answer: selectedEmoji,
+          'g-recaptcha-response': token
+        })
       })
         .then(response => response.json())
         .then(data => {
           if (data.success) {
             alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
           } else {
-            alert("❌ Oops! Something went wrong.");
+            grecaptcha.reset();
+            alert("❌ reCAPTCHA failed or something went wrong.");
           }
         })
         .catch(error => {
@@ -132,7 +157,7 @@
     window.onload = function() {
       const username = localStorage.getItem("username");
       if (!username) {
-        window.location.href = "index.html"; // Redirect if no username found
+        window.location.href = "index.html";
       }
     };
   </script>
