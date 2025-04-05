@@ -6,8 +6,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Welcome to the Future</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
   <style>
     html, body {
@@ -63,32 +62,37 @@
       margin-top: 15px;
     }
 
-.emoji-buttons button {
-  background-color: #111;
-  color: #00fff2;
-  border: 2px solid #00fff2;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px #00fff2;
-  width: 100%; /* ✅ makes button as wide as input */
-  height: auto;
-  font-size: 0.9em;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 8px 12px;
-  max-width: 100%; /* ✅ allows full use of .content container */
-  text-align: left;
-  gap: 10px;
-}
-.emoji-buttons button.selected {
-  border-color: #ff00ff !important;
-  background-color: rgba(255, 0, 255, 0.07);
-  animation: pulseSelected 1.6s infinite ease-in-out;
-}
+    .emoji-buttons button {
+      background-color: #111;
+      color: #00fff2;
+      border: 2px solid #00fff2;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00fff2;
+      width: 100%;
+      height: auto;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 8px 12px;
+      max-width: 100%;
+      text-align: left;
+      gap: 10px;
+      perspective: 800px;
+    }
 
-  
+    .emoji-buttons button.selected {
+      border-color: #ff00ff !important;
+      background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.05));
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px rgba(255, 0, 255, 0.3);
+      animation: shimmerGlow 1.6s infinite ease-in-out;
+    }
+
+    .pulseOnce {
+      animation: pulsePop 0.5s ease;
+    }
 
     .emoji-buttons button:hover {
       background-color: #00fff2;
@@ -138,6 +142,39 @@
       }
     }
 
+    @keyframes shimmerGlow {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff00ff;
+      }
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px #ff00ff, 0 0 60px rgba(255, 0, 255, 0.4);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff00ff;
+      }
+    }
+
+    @keyframes pulsePop {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 8px #ff00ff;
+      }
+      30% {
+        transform: scale(1.08);
+        box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+      }
+      60% {
+        transform: scale(0.98);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff00ff;
+      }
+    }
+
     @media (max-height: 700px) {
       header {
         font-size: 1.6em;
@@ -148,38 +185,6 @@
         padding: 8px 16px;
       }
     }
-
-    @keyframes selectPulse {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 10px #ff00ff;
-  }
-  50% {
-    transform: scale(1.03);
-    box-shadow: 0 0 18px #ff00ff;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 10px #ff00ff;
-  }
-}
-
-    @keyframes pulseSelected {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 0 10px #ff00ff;
-  }
-  50% {
-    transform: scale(1.02);
-    box-shadow: 0 0 18px #ff00ff;
-  }
-  100% {
-    transform: scale(1);
-    box-shadow: 0 0 10px #ff00ff;
-  }
-}
-
-
   </style>
 </head>
 <body>
@@ -222,10 +227,22 @@
     let selectedEmoji = "";
 
     function submitResponse(button, emoji) {
+      const selectSound = document.getElementById('selectSound');
+      selectSound.currentTime = 0;
+      selectSound.play();
+
       selectedEmoji = emoji;
+
       const buttons = document.querySelectorAll('.emoji-buttons button');
-      buttons.forEach(btn => btn.classList.remove('selected'));
-      button.classList.add('selected');
+      buttons.forEach(btn => {
+        btn.classList.remove('selected', 'pulseOnce');
+      });
+
+      button.classList.add('selected', 'pulseOnce');
+
+      setTimeout(() => {
+        button.classList.remove('pulseOnce');
+      }, 600);
     }
 
     function onloadCallback() {
@@ -245,7 +262,6 @@
       }
 
       console.log("🔑 reCAPTCHA token being sent:", token);
-
 
       localStorage.setItem('username', username);
 
@@ -274,24 +290,10 @@
       });
     }
 
-    // ✅ Trigger invisible reCAPTCHA on form submit
     document.getElementById('emojiForm').addEventListener('submit', function (e) {
       e.preventDefault();
       grecaptcha.execute();
     });
-
-
-    function submitResponse(button, emoji) {
-  const selectSound = document.getElementById('selectSound');
-  selectSound.currentTime = 0;
-  selectSound.play();
-
-  selectedEmoji = emoji;
-  const buttons = document.querySelectorAll('.emoji-buttons button');
-  buttons.forEach(btn => btn.classList.remove('selected'));
-  button.classList.add('selected');
-}
-
   </script>
 </body>
 </html>
