@@ -29,6 +29,7 @@
       font-size: 1.4em;
       text-shadow: 0 0 15px #ff00ff;
       animation: pulse 2s infinite ease-in-out;
+      min-height: 3em;
     }
 
     @keyframes pulse {
@@ -36,11 +37,24 @@
       50% { text-shadow: 0 0 20px #ff00ff; opacity: 1; }
       100% { text-shadow: 0 0 10px #00fff2; opacity: 0.8; }
     }
+
+    .cursor {
+      display: inline-block;
+      width: 10px;
+      background-color: #00fff2;
+      animation: blink 1s infinite;
+      margin-left: 5px;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
   </style>
 </head>
 <body>
 
-  <h1 id="message">🔮 Looking into the future...</h1>
+  <h1 id="message">🔮 Looking into the future<span class="cursor"></span></h1>
 
   <script>
     const messages = [
@@ -52,22 +66,38 @@
       "⏳ Your result is ready in 3... 2... 1..."
     ];
 
-    const durations = [4000, 4000, 3000, 5000, 5000, 4000]; // in milliseconds
+    const delays = [4000, 4000, 3000, 5000, 5000, 4000];
 
-    let index = 0;
-    const messageEl = document.getElementById('message');
+    const messageEl = document.getElementById("message");
+    const cursor = document.querySelector(".cursor");
+    let messageIndex = 0;
 
-    function showNextMessage() {
-      if (index < messages.length) {
-        messageEl.textContent = messages[index];
-        setTimeout(showNextMessage, durations[index]);
-        index++;
+    function typeMessage(text, callback) {
+      let i = 0;
+      messageEl.innerHTML = "";
+      const interval = setInterval(() => {
+        messageEl.textContent = text.slice(0, i + 1);
+        messageEl.appendChild(cursor);
+        i++;
+        if (i >= text.length) {
+          clearInterval(interval);
+          setTimeout(callback, delays[messageIndex]);
+        }
+      }, 40); // typing speed (ms per character)
+    }
+
+    function startSequence() {
+      if (messageIndex < messages.length) {
+        typeMessage(messages[messageIndex], () => {
+          messageIndex++;
+          startSequence();
+        });
       } else {
-        window.location.href = "career.html"; // Redirect to career page
+        window.location.href = "career.html";
       }
     }
 
-    window.onload = showNextMessage;
+    window.onload = startSequence;
   </script>
 
 </body>
