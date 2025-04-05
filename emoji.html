@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>What's Your Emoji</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       background: radial-gradient(circle at center, #0d0d0d 10%, #05051e 90%);
       color: #ffffff;
-      font-family: 'Orbitron', sans-serif;
+      font-family: 'Quicksand', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -55,8 +55,7 @@
 
     .emoji {
       font-size: 1.7em;
-      .emoji {
-  cursor: url('https://cur.cursors-4u.net/special/spe-3/spe299.cur'), auto;}
+      cursor: url('https://cur.cursors-4u.net/special/spe-3/spe299.cur'), auto;
       transition: transform 0.3s ease, filter 0.3s ease;
       filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.7));
       text-align: center;
@@ -65,6 +64,17 @@
     .emoji:hover, .emoji.selected {
       transform: scale(1.7) rotate(5.5deg);
       filter: drop-shadow(0px 0px 25px rgba(255, 255, 0, 1));
+    }
+
+    .emoji.selected {
+      animation: dramaticPop 0.6s ease;
+    }
+
+    @keyframes dramaticPop {
+      0% { transform: scale(1) rotate(0); filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.7)); }
+      30% { transform: scale(1.8) rotate(8deg); filter: drop-shadow(0 0 30px rgba(255, 255, 0, 1)); }
+      60% { transform: scale(1.4) rotate(-4deg); }
+      100% { transform: scale(1.7) rotate(5.5deg); }
     }
 
     button {
@@ -108,9 +118,9 @@
   <header>✨ <span id="username"></span>'s Future ✨</header>
 
   <div class="content">
- <p> ⛔ Hold on! ⛔ </p><p>Before we find out about your future 🔮, I need one crucial information from you. The 2025 you! </p>
-     <p>🧭 If you were to describe yourself, which 2️⃣ symbols would you choose?</p>
-    
+    <p> ⛔ Hold on! ⛔ </p>
+    <p>Before we find out about your future 🔮, I need one crucial information from you. The 2025 you! </p>
+    <p>🧭 If you were to describe yourself, which 2️⃣ symbols would you choose?</p>
   </div>
 
   <div class="emojis" id="emojiContainer"></div>
@@ -123,7 +133,7 @@
       document.getElementById('username').textContent = username;
 
       const allEmojis = ['🎨', '🧠', '🛠️', '⚔️', '🎼', '🖥️', '🏗️', '🏙️', '📊', '🩺', '🕵️‍♂️', '🎭', '🚀', '👗', '💪', '🤖', '🎮', '💎', '🛩️', '🧬', '✏️', '🛸', '🚄', '🏡', '🎤', '🤝', '⏳', '🐾', '⛈️', '🐠', '🐯', '❤️', '🌍', '⚖️', '💃', '🏺', '🌋', '☢️', '📽️'];
-      
+
       const shuffledEmojis = allEmojis.sort(() => Math.random() - 0.5);
       const emojiContainer = document.getElementById('emojiContainer');
       emojiContainer.innerHTML = '';
