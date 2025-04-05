@@ -111,17 +111,36 @@
              border-top: 1px solid #00ffcc;
              padding-top: 5px;
          }
+      .type-line {
+  margin: 15px 0;
+  min-height: 1.4em;
+}
+
+.cursor {
+  display: inline-block;
+  width: 10px;
+  background-color: #00fff2;
+  animation: blink 1s step-end infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
      </style>
      <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
  </head>
  
  <body>
-  <header>
-    In the year 2050, <br><br>
-    <span id="username"></span> <br><br>
-    is a world-renowned <br><br>
-    <span id="careerTitle"></span> <br>
-  </header>   
+<header id="careerHeader">
+  <div class="type-line" id="line1"></div>
+  <div class="type-line" id="line2"></div>
+  <div class="type-line" id="line3"></div>
+  <div class="type-line" id="line4"></div>
+</header>
+
   
   <div class="letter-text">(1) Message Received!</div>
   <span id="letterIcon" style="cursor: pointer; font-size: 2em;">📩</span>
@@ -1783,6 +1802,34 @@
 "Nuclear Dance Performance Director": "Today, I led a groundbreaking mission in the field of director, where we merged cutting-edge innovation with creativity to redefine what's possible. The best part of my job is seeing ideas materialize into tangible impact across the world. The funniest moment? A holographic assistant once mistook me for a historical reenactment actor during a live keynote! Keep pushing the boundaries, younger me — your bold thinking is the blueprint for the future."
      
     };
+
+  const delayBetweenLines = 2000;
+  const typingSpeed = 50;
+  const cursor = document.createElement("span");
+  cursor.className = "cursor";
+
+  function typeLine(line, elementId, callback) {
+    let i = 0;
+    const element = document.getElementById(elementId);
+    element.textContent = "";
+    element.appendChild(cursor);
+
+    const interval = setInterval(() => {
+      element.textContent += line[i];
+      element.appendChild(cursor);
+      i++;
+      if (i >= line.length) {
+        clearInterval(interval);
+        setTimeout(callback, delayBetweenLines);
+      }
+    }, typingSpeed);
+  }
+
+  function startTyping(lines, index = 0) {
+    if (index < lines.length) {
+      typeLine(lines[index], `line${index + 1}`, () => startTyping(lines, index + 1));
+    }
+  }
 
 
 
@@ -3883,6 +3930,18 @@ document.addEventListener('DOMContentLoaded', () => {
  const exactCareer = careersTable.find(c => arraysEqual(c.emojis, selectedEmojis));
  document.getElementById('careerTitle').textContent = exactCareer ? exactCareer.title : 'Unknown Career';
 
+const careerTitle = exactCareer ? exactCareer.title : 'Unknown Career';
+localStorage.setItem('careerTitle', careerTitle); // Save to use in popup
+
+const lines = [
+  "In the year 2050,",
+  `${username},`,
+  "is a world-renowned",
+  `${careerTitle}`
+];
+startTyping(lines); // Start typewriter animation
+
+ 
  
     // Consolidated showMessage function
     function showMessage(careerTitle) {
