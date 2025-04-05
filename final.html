@@ -126,33 +126,33 @@
 
       grecaptcha.execute(); // ⏩ triggers invisible reCAPTCHA
     }
+function onSubmit(token) {
+  const username = localStorage.getItem("username");
 
-    function onSubmit(token) {
-      const username = localStorage.getItem("username");
-
-      fetch("https://magicfutureball-api.vercel.app/api/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: username,
-          answer: selectedEmoji,
-          'g-recaptcha-response': token
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.success) {
-            alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
-          } else {
-            grecaptcha.reset();
-            alert("❌ reCAPTCHA failed or something went wrong.");
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          alert("❌ Submission failed. Please try again.");
-        });
-    }
+  fetch("https://magicfutureball-api.vercel.app/api/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      username: username,
+      answer: selectedEmoji,
+      'g-recaptcha-response': token
+    })
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
+        window.location.href = "index.html"; // 🚀 Redirect to homepage
+      } else {
+        grecaptcha.reset();
+        alert("❌ reCAPTCHA failed or something went wrong.");
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert("❌ Submission failed. Please try again.");
+    });
+}
 
     window.onload = function() {
       const username = localStorage.getItem("username");
