@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+  <audio id="selectSound" src="https://freesound.org/data/previews/341/341695_5260877-lq.mp3"></audio>
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -82,9 +84,10 @@
 }
 .emoji-buttons button.selected {
   border-color: #ff00ff !important;
-  animation: selectPulse 0.4s ease;
-  background-color: rgba(255, 0, 255, 0.1);
+  background-color: rgba(255, 0, 255, 0.07);
+  animation: pulseSelected 1.6s infinite ease-in-out;
 }
+
   
 
     .emoji-buttons button:hover {
@@ -160,6 +163,22 @@
     box-shadow: 0 0 10px #ff00ff;
   }
 }
+
+    @keyframes pulseSelected {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px #ff00ff;
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 18px #ff00ff;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px #ff00ff;
+  }
+}
+
 
   </style>
 </head>
@@ -260,6 +279,19 @@
       e.preventDefault();
       grecaptcha.execute();
     });
+
+
+    function submitResponse(button, emoji) {
+  const selectSound = document.getElementById('selectSound');
+  selectSound.currentTime = 0;
+  selectSound.play();
+
+  selectedEmoji = emoji;
+  const buttons = document.querySelectorAll('.emoji-buttons button');
+  buttons.forEach(btn => btn.classList.remove('selected'));
+  button.classList.add('selected');
+}
+
   </script>
 </body>
 </html>
