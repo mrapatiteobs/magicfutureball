@@ -61,29 +61,31 @@
       margin-top: 15px;
     }
 
-    .emoji-buttons button {
-      background-color: #111;
-      color: #00fff2;
-      border: 2px solid #00fff2;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px #00fff2;
-      width: auto;
-      height: auto;
-      font-size: 0.9em;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 8px 12px;
-      max-width: 260px;
-      text-align: left;
-      gap: 10px;
-    }
-
-    .emoji-buttons button.selected {
-      border-color: #ff00ff !important;
-    }
+.emoji-buttons button {
+  background-color: #111;
+  color: #00fff2;
+  border: 2px solid #00fff2;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #00fff2;
+  width: 100%; /* ✅ makes button as wide as input */
+  height: auto;
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 12px;
+  max-width: 100%; /* ✅ allows full use of .content container */
+  text-align: left;
+  gap: 10px;
+}
+.emoji-buttons button.selected {
+  border-color: #ff00ff !important;
+  animation: selectPulse 0.4s ease;
+  background-color: rgba(255, 0, 255, 0.1);
+}
+  
 
     .emoji-buttons button:hover {
       background-color: #00fff2;
@@ -143,6 +145,22 @@
         padding: 8px 16px;
       }
     }
+
+    @keyframes selectPulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 10px #ff00ff;
+  }
+  50% {
+    transform: scale(1.03);
+    box-shadow: 0 0 18px #ff00ff;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px #ff00ff;
+  }
+}
+
   </style>
 </head>
 <body>
