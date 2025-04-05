@@ -133,9 +133,13 @@
     <div class="type-line" id="line4"></div>
   </header>
 
+
+  <div id="letterReveal" style="display: none;">
   <div class="letter-text">(1) Message Received!</div>
   <span id="letterIcon" style="cursor: pointer; font-size: 2em;">📩</span>
+</div>
 
+  
   <div id="popupContainer" class="popup">
     <span class="close" id="closePopup">&times;</span>
     <div class="popup-header">
@@ -1467,12 +1471,15 @@
         }
       }, typingSpeed);
     }
+function startTyping(lines, index = 0, onComplete) {
+  if (index < lines.length) {
+    typeLine(lines[index], `line${index + 1}`, () => startTyping(lines, index + 1, onComplete));
+  } else if (onComplete) {
+    onComplete();
+  }
+}
 
-    function startTyping(lines, index = 0) {
-      if (index < lines.length) {
-        typeLine(lines[index], `line${index + 1}`, () => startTyping(lines, index + 1));
-      }
-    }
+
 
     document.addEventListener('DOMContentLoaded', () => {
       const username = localStorage.getItem('username') || 'User';
@@ -3568,7 +3575,14 @@
         `${careerTitle}`
       ];
 
-      startTyping(lines);
+      
+
+      startTyping(lines, 0, () => {
+  setTimeout(() => {
+    document.getElementById('letterReveal').style.display = 'block';
+  }, 2000); // wait 2 seconds after last line
+});
+
 
       function showMessage(careerTitle) {
         const message = careerMessages[careerTitle] || "Welcome to the future! Your career is truly groundbreaking. Keep pushing the boundaries!";
