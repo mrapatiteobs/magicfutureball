@@ -206,6 +206,9 @@
         return;
       }
 
+      console.log("🔑 reCAPTCHA token being sent:", token);
+
+
       localStorage.setItem('username', username);
 
       fetch('https://magicfutureball-api.vercel.app/api/submit', {
