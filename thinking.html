@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looking into the Future</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(to bottom, #000000, #0d0d0d, #1a1a1a);
+      background-image: url('https://raw.githubusercontent.com/mrapatiteobs/emojime/430b388dfab577cad50dbf9b3b61be7c740fb121/background.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+      font-family: 'Orbitron', sans-serif;
+      color: #00fff2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 30px;
+    }
+
+    h1 {
+      font-size: 1.4em;
+      text-shadow: 0 0 15px #ff00ff;
+      animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { text-shadow: 0 0 10px #00fff2; opacity: 0.8; }
+      50% { text-shadow: 0 0 20px #ff00ff; opacity: 1; }
+      100% { text-shadow: 0 0 10px #00fff2; opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 id="message">🔮 Looking into the future...</h1>
+
+  <script>
+    const messages = [
+      "🔮 Looking into the future...",
+      "🌀 Requesting access to the quantum portal of 2050...",
+      "✅ Access successful.",
+      "📡 Retrieving data requested...",
+      "📬 Incoming message successfully received.",
+      "⏳ Your result is ready in 3... 2... 1..."
+    ];
+
+    const durations = [4000, 4000, 3000, 5000, 5000, 4000]; // in milliseconds
+
+    let index = 0;
+    const messageEl = document.getElementById('message');
+
+    function showNextMessage() {
+      if (index < messages.length) {
+        messageEl.textContent = messages[index];
+        setTimeout(showNextMessage, durations[index]);
+        index++;
+      } else {
+        window.location.href = "career.html"; // Redirect to career page
+      }
+    }
+
+    window.onload = showNextMessage;
+  </script>
+
+</body>
+</html>
