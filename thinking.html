@@ -65,12 +65,12 @@
       "🔮 Looking into the future...",
       "🌀 Requesting access to the quantum portal of 2050...",
       "✅ Access successful.",
-      "📡 Retrieving data requested...",
-      "📬 Incoming message successfully received.",
+      "📡 Retrieving data ...",
+      "📬 Incoming message received.",
       "⏳ Your result is ready in 3... 2... 1..."
     ];
 
-    const delays = [1000, 1000, 1000, 1000, 1000, 1000];
+    const delays = [500, 500, 500, 500, 500, 500];
 
     const messageEl = document.getElementById("message");
     const cursor = document.querySelector(".cursor");
@@ -87,7 +87,7 @@
           clearInterval(interval);
           setTimeout(callback, delays[messageIndex]);
         }
-      }, 60); // typing speed (ms per character)
+      }, 80); // typing speed (ms per character)
     }
 
     function startSequence() {
