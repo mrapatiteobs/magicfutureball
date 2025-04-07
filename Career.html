@@ -3321,7 +3321,7 @@ function startTyping(lines, index = 0, onComplete) {
       }
 
       const exactCareer = careersTable.find(c => arraysEqual(c.emojis, selectedEmojis));
-      const careerTitle = exactCareer ? exactCareer.title : 'Unknown Career';
+      const careerTitle = exactCareer ? exactCareer.title : 'Your career title is undetermined, how mysterious ..';
       localStorage.setItem('careerTitle', careerTitle);
 
       const lines = [
@@ -3336,7 +3336,7 @@ function startTyping(lines, index = 0, onComplete) {
       startTyping(lines, 0, () => {
   setTimeout(() => {
     document.getElementById('letterReveal').style.display = 'block';
-  }, 1000); // wait 2 seconds after last line
+  }, 700); // wait 2 seconds after last line
 });
 
 
