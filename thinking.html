@@ -70,7 +70,7 @@
       "⏳ Your result is ready in 3... 2... 1..."
     ];
 
-    const delays = [3000, 3000, 2000, 3000, 3000, 3000];
+    const delays = [1000, 1000, 1000, 1000, 1000, 1000];
 
     const messageEl = document.getElementById("message");
     const cursor = document.querySelector(".cursor");
@@ -87,7 +87,7 @@
           clearInterval(interval);
           setTimeout(callback, delays[messageIndex]);
         }
-      }, 40); // typing speed (ms per character)
+      }, 60); // typing speed (ms per character)
     }
 
     function startSequence() {
