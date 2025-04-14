@@ -42,12 +42,8 @@
     }
 
     @keyframes crystalPulse {
-      0%, 100% {
-        box-shadow: 0 0 80px rgba(0, 255, 255, 0.3), 0 0 160px rgba(255, 0, 255, 0.2);
-      }
-      50% {
-        box-shadow: 0 0 140px rgba(0, 255, 255, 0.6), 0 0 260px rgba(255, 0, 255, 0.4);
-      }
+      0%, 100% { box-shadow: 0 0 80px rgba(0, 255, 255, 0.3), 0 0 160px rgba(255, 0, 255, 0.2); }
+      50% { box-shadow: 0 0 140px rgba(0, 255, 255, 0.6), 0 0 260px rgba(255, 0, 255, 0.4); }
     }
 
     header {
@@ -171,6 +167,14 @@
       transform: scale(1.05);
     }
 
+    .credit {
+      margin-top: 20px;
+      font-size: 0.8em;
+      color: #aaa;
+      text-align: center;
+      font-family: 'Quicksand', sans-serif;
+    }
+
     @keyframes neon-glow {
       0% { text-shadow: 0 0 15px #ff00ff, 0 0 5px #00fff2; }
       100% { text-shadow: 0 0 25px #00fff2, 0 0 10px #ff00ff; }
@@ -232,6 +236,8 @@
       <div id="recaptcha-container"></div>
       <button type="submit" class="final-submit">Submit</button>
     </form>
+
+    <p class="credit">This is a project by Tan Sebastian</p>
   </div>
 
   <script>
