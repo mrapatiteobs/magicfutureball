@@ -23,7 +23,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding-top: env(safe-area-inset-top, 10px); /* Fix for mobile notch cutoffs */
+      padding-top: env(safe-area-inset-top, 10px);
     }
 
     body::before {
@@ -67,8 +67,9 @@
       background: rgba(0, 0, 0, 0.5);
       padding: 20px;
       border-radius: 50%;
-      width: 420px;
-      height: 420px;
+      width: 90vw;
+      max-width: 420px;
+      height: auto;
       box-shadow: inset 0 0 40px rgba(0,255,255,0.2), 0 0 25px rgba(255,0,255,0.1);
       display: flex;
       flex-direction: column;
@@ -171,12 +172,8 @@
     }
 
     @keyframes neon-glow {
-      0% {
-        text-shadow: 0 0 15px #ff00ff, 0 0 5px #00fff2;
-      }
-      100% {
-        text-shadow: 0 0 25px #00fff2, 0 0 10px #ff00ff;
-      }
+      0% { text-shadow: 0 0 15px #ff00ff, 0 0 5px #00fff2; }
+      100% { text-shadow: 0 0 25px #00fff2, 0 0 10px #ff00ff; }
     }
 
     @keyframes shimmerGlow {
@@ -192,7 +189,6 @@
       100% { transform: scale(1); box-shadow: 0 0 10px #ff00ff; }
     }
 
-    /* 📱 Mobile Fix for Header Overflow */
     @media (max-width: 480px) {
       header {
         font-size: 1.3em;
