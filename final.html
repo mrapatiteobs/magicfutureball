@@ -8,31 +8,56 @@
   <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
   <style>
     body {
-      background-color: #0d0d0d;
+      margin: 0;
+      padding: 5vh 5vw;
+      min-height: 100vh;
+      background: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%);
       color: #ffffff;
       font-family: 'Orbitron', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 100vh;
-      margin: 0;
-      background-image: url('https://raw.githubusercontent.com/mrapatiteobs/emojime/430b388dfab577cad50dbf9b3b61be7c740fb121/background.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-position: center;
       text-align: center;
-      padding: 0 5%;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 90vw;
+      max-width: 600px;
+      height: 90vw;
+      max-height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05), rgba(128,0,255,0.03), transparent 80%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 100px rgba(0,255,255,0.3), 0 0 180px rgba(255,0,255,0.2);
+      animation: pulseOrb 6s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes pulseOrb {
+      0%, 100% {
+        box-shadow: 0 0 80px rgba(0,255,255,0.3), 0 0 160px rgba(255,0,255,0.2);
+      }
+      50% {
+        box-shadow: 0 0 140px rgba(0,255,255,0.6), 0 0 260px rgba(255,0,255,0.4);
+      }
     }
 
     h1 {
-      font-size: 1.5em;
+      font-size: clamp(0.7em, 4vw, 1.1em);
       color: #00ffcc;
       text-shadow: 2px 2px 8px #ff00ff;
       margin-bottom: 30px;
       margin-top: 0;
       line-height: 1.4;
+      z-index: 1;
+      max-width: 90vw;
     }
 
     .emoji-buttons {
@@ -41,47 +66,79 @@
       justify-content: center;
       gap: 15px;
       margin: 20px 0;
+      z-index: 1;
+      max-width: 90vw;
     }
 
     .emoji-buttons button {
-      font-size: 2rem;
+      font-size: clamp(1.1rem, 5vw, 2.1rem);
       background: none;
       border: 2px solid #00ffcc;
       border-radius: 10px;
       padding: 10px;
       cursor: pointer;
-      transition: transform 0.2s, border-color 0.3s;
+      transition: transform 0.2s, border-color 0.3s, box-shadow 0.3s;
+      color: #ffffff;
+      box-shadow: 0 0 10px rgba(0,255,255,0.3);
     }
 
     .emoji-buttons button:hover {
       transform: scale(1.2);
       border-color: #ff00ff;
+      box-shadow: 0 0 20px rgba(255,0,255,0.6);
     }
 
     .emoji-buttons button.selected {
       border-color: #ff00ff !important;
       transform: scale(1.2);
+      box-shadow: 0 0 25px rgba(255,255,0,0.9);
     }
 
     button#submitBtn {
       margin-top: 20px;
       padding: 12px 25px;
       font-size: 1em;
-      background-color: #ff00ff;
-      color: white;
+      background: linear-gradient(90deg, #00ffcc, #ff00ff);
+      color: #0d0d0d;
       border: none;
       border-radius: 10px;
       cursor: pointer;
-      box-shadow: 0 0 10px #ff00ff;
+      box-shadow: 0 0 15px rgba(255,0,255,0.6);
+      z-index: 1;
+      width: 90%;
+      max-width: 300px;
     }
 
     button#submitBtn:hover {
       background-color: #cc00cc;
     }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 5vh 4vw;
+      }
+
+      h1 {
+        font-size: 1.2em;
+      }
+
+      .emoji-buttons {
+        gap: 10px;
+      }
+
+      .emoji-buttons button {
+        font-size: 2rem;
+        padding: 8px;
+      }
+
+      button#submitBtn {
+        font-size: 0.95em;
+        padding: 10px 20px;
+      }
+    }
   </style>
 </head>
 <body>
-
   <h1>
     Now that you've seen a glimpse of the future... <br>
     what comes to mind when you think about your future?
@@ -110,7 +167,7 @@
 
     function onloadCallback() {
       grecaptcha.render('recaptcha-container', {
-        sitekey: '6LdyxQorAAAAAGYPaNqj_1wX1ukBmyG13fp70z6r', // 🔁 Replace with your actual site key
+        sitekey: '6LdyxQorAAAAAGYPaNqj_1wX1ukBmyG13fp70z6r',
         size: 'invisible',
         callback: onSubmit
       });
@@ -124,35 +181,36 @@
         return;
       }
 
-      grecaptcha.execute(); // ⏩ triggers invisible reCAPTCHA
+      grecaptcha.execute();
     }
-function onSubmit(token) {
-  const username = localStorage.getItem("username");
 
-  fetch("https://magicfutureball-api.vercel.app/api/submit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      username: username,
-      answer: selectedEmoji,
-      'g-recaptcha-response': token
-    })
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.success) {
-        alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
-        window.location.href = "index.html"; // 🚀 Redirect to homepage
-      } else {
-        grecaptcha.reset();
-        alert("❌ reCAPTCHA failed or something went wrong.");
-      }
-    })
-    .catch(error => {
-      console.error(error);
-      alert("❌ Submission failed. Please try again.");
-    });
-}
+    function onSubmit(token) {
+      const username = localStorage.getItem("username");
+
+      fetch("https://magicfutureball-api.vercel.app/api/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: username,
+          answer: selectedEmoji,
+          'g-recaptcha-response': token
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
+          window.location.href = "index.html";
+        } else {
+          grecaptcha.reset();
+          alert("❌ reCAPTCHA failed or something went wrong.");
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("❌ Submission failed. Please try again.");
+      });
+    }
 
     window.onload = function() {
       const username = localStorage.getItem("username");
@@ -161,6 +219,5 @@ function onSubmit(token) {
       }
     };
   </script>
-
 </body>
 </html>
