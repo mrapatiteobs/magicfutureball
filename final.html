@@ -199,7 +199,7 @@
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          alert(`✅ Thank you, ${username}! Your future feeling has been recorded.`);
+          alert(`✅ Thank you, ${username}! Your feeling has been recorded.`);
           window.location.href = "index.html";
         } else {
           grecaptcha.reset();
