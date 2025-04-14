@@ -92,6 +92,17 @@
       width: 100%;
       box-shadow: 0 0 12px #00fff2;
     }
+input::placeholder {
+  animation: typingPulse 2s steps(3) infinite;
+  color: #cccccc;
+}
+
+@keyframes typingPulse {
+  0%   { content: 'type your name'; }
+  33%  { content: 'type your name, select your emoji,'; }
+  66%  { content: 'type your name, select your emoji, wait 3s'; }
+  100% { content: 'type your name, select your emoji, wait 3s'..; }
+}
 
     .emoji-buttons {
       display: flex;
