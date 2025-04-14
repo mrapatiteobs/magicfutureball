@@ -1906,8 +1906,8 @@
      // Add more messages here later
     };
 
-    const delayBetweenLines = 2000;
-    const typingSpeed = 50;
+    const delayBetweenLines = 500;
+    const typingSpeed = 80;
     const cursor = document.createElement("span");
     cursor.className = "cursor";
 
@@ -3695,12 +3695,12 @@ function startTyping(lines, index = 0, onComplete) {
       startTyping(lines, 0, () => {
   setTimeout(() => {
     document.getElementById('letterReveal').style.display = 'block';
-  }, 700); // wait 2 seconds after last line
+  }, 200); // wait 2 seconds after last line
 });
 
 
       function showMessage(careerTitle) {
-        const message = careerMessages[careerTitle] || "Welcome to the future! Your career is truly groundbreaking. Keep pushing the boundaries!";
+        const message = careerMessages[careerTitle] || "Greetings from the future! Today I am working on a top secret project that I can't disclose, but rest assured it is truly groundbreaking! 😉 Keep pushing the boundaries, you are on the right track!";
         document.getElementById('popupMessage').innerText = message;
         document.getElementById('popupContainer').style.display = 'block';
       }
