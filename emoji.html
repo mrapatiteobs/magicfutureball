@@ -8,28 +8,55 @@
   <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
   <style>
     body {
-      background: radial-gradient(circle at center, #0d0d0d 10%, #05051e 90%);
+      margin: 0;
+      padding: 5vh 5vw;
+      min-height: 100vh;
+      background: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%);
       color: #ffffff;
-      font-family: 'Major Mono Display', sans-serif;
+      font-family: 'Major Mono Display', monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: flex-start;
-      min-height: 100vh;
-      width: 100vw;
-      margin: 0;
-      padding: 5vh 5%;
       text-align: center;
-      overflow-y: auto;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 90vw;
+      max-width: 600px;
+      height: 90vw;
+      max-height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05), rgba(128,0,255,0.03), transparent 80%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 100px rgba(0,255,255,0.3), 0 0 180px rgba(255,0,255,0.2);
+      animation: pulseOrb 6s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes pulseOrb {
+      0%, 100% {
+        box-shadow: 0 0 80px rgba(0,255,255,0.3), 0 0 160px rgba(255,0,255,0.2);
+      }
+      50% {
+        box-shadow: 0 0 140px rgba(0,255,255,0.6), 0 0 260px rgba(255,0,255,0.4);
+      }
     }
 
     header {
-      font-size: 2em;
+      font-size: clamp(1.5em, 4vw, 2em);
       font-weight: bold;
       color: #00ffcc;
       text-shadow: 0 0 15px #ff00ff, 0 0 30px #00ffcc;
       margin-bottom: 20px;
       animation: glowPulse 1.5s infinite alternate;
+      z-index: 1;
     }
 
     @keyframes glowPulse {
@@ -40,23 +67,25 @@
     .content {
       font-size: 1.1em;
       line-height: 1.6;
-      max-width: 90%;
+      max-width: 600px;
       margin-bottom: 20px;
       text-shadow: 0px 0px 12px rgba(0, 255, 204, 0.7);
+      z-index: 1;
     }
 
     .emojis {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
       gap: 10px;
-      width: 90%;
-      max-width: 450px;
+      width: 100%;
+      max-width: 500px;
       margin-bottom: 25px;
+      z-index: 1;
     }
 
     .emoji {
       font-size: 1.7em;
-      cursor: url('https://cur.cursors-4u.net/special/spe-3/spe299.cur'), auto;
+      cursor: pointer;
       transition: transform 0.3s ease, filter 0.3s ease;
       filter: drop-shadow(0 0 10px rgba(0, 255, 204, 0.7));
       text-align: center;
@@ -91,27 +120,12 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       width: 85%;
       max-width: 260px;
+      z-index: 1;
     }
 
     button:hover {
       transform: scale(1.1);
       box-shadow: 0px 0px 30px rgba(255, 0, 255, 1);
-    }
-
-    @media (max-width: 768px) {
-      header { font-size: 1.7em; }
-      .content { font-size: 1em; }
-      .emoji { font-size: 2.8em; }
-      button { font-size: 1em; padding: 12px 20px; }
-      .emojis { grid-template-columns: repeat(6, 1fr); gap: 10px; }
-    }
-
-    @media (max-width: 480px) {
-      header { font-size: 1.4em; }
-      .content { font-size: 0.8em; }
-      .emoji { font-size: 1.7em; }
-      button { font-size: 0.9em; padding: 10px 15px; }
-      .emojis { grid-template-columns: repeat(6, 1fr); gap: 8px; }
     }
   </style>
 </head>
@@ -119,8 +133,8 @@
   <header>✨ <span id="username"></span>'s Future ✨</header>
 
   <div class="content">
-    <p>   Loading... </p>
-    <p> ⛔ Hold on! ⛔ </p>
+    <p>Loading...</p>
+    <p>⛔ Hold on! ⛔</p>
     <p>Before we find out about your future, I need one crucial information from you. The 2025 you!</p>
     <p>If you were to describe your passions, which 2 symbols would you choose?</p>
   </div>
