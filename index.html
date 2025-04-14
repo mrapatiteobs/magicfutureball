@@ -12,8 +12,8 @@
   <style>
     html, body {
       height: 100%;
-      background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
-      background-image: url('https://www.transparenttextures.com/patterns/stardust.png');
+      background: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%);
+      background-size: cover;
       color: #ffffff;
       font-family: 'Major Mono Display', monospace;
       margin: 0;
@@ -30,29 +30,29 @@
       position: fixed;
       top: 50%;
       left: 50%;
-      width: 650px;
-      height: 650px;
-      background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, rgba(255,0,255,0.1) 60%, rgba(0,0,0,0) 90%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(128,0,255,0.05) 60%, transparent 80%);
       border-radius: 50%;
       transform: translate(-50%, -50%);
-      box-shadow: 0 0 120px rgba(0, 255, 255, 0.3), 0 0 160px rgba(255, 0, 255, 0.2);
-      animation: pulseBall 6s infinite ease-in-out;
+      box-shadow: 0 0 100px rgba(0, 255, 255, 0.3), 0 0 180px rgba(255, 0, 255, 0.2);
+      animation: crystalPulse 6s infinite ease-in-out;
       z-index: 0;
     }
 
-    @keyframes pulseBall {
+    @keyframes crystalPulse {
       0%, 100% {
-        box-shadow: 0 0 80px rgba(0, 255, 255, 0.4), 0 0 140px rgba(255, 0, 255, 0.3);
+        box-shadow: 0 0 80px rgba(0, 255, 255, 0.3), 0 0 160px rgba(255, 0, 255, 0.2);
       }
       50% {
-        box-shadow: 0 0 140px rgba(0, 255, 255, 0.6), 0 0 240px rgba(255, 0, 255, 0.4);
+        box-shadow: 0 0 140px rgba(0, 255, 255, 0.6), 0 0 260px rgba(255, 0, 255, 0.4);
       }
     }
 
     header {
       font-size: 2em;
       color: #00fff2;
-      text-shadow: 0 0 15px #ff00ff;
+      text-shadow: 0 0 20px #ff00ff;
       font-family: 'Major Mono Display', monospace;
       text-align: center;
       animation: neon-glow 2s infinite alternate;
@@ -61,33 +61,152 @@
     }
 
     .content {
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, 0.5);
       padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(0,255,255,0.2);
-      width: 90%;
-      max-width: 420px;
-      margin: auto;
+      border-radius: 50%;
+      width: 420px;
+      height: 420px;
+      box-shadow: inset 0 0 40px rgba(0,255,255,0.2), 0 0 25px rgba(255,0,255,0.1);
       display: flex;
       flex-direction: column;
+      justify-content: center;
       align-items: center;
-      backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
       z-index: 2;
+      transition: transform 0.3s ease;
     }
 
-    .content::before {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      background: radial-gradient(circle, rgba(255,255,255,0.15), transparent);
-      border-radius: 50%;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      filter: blur(80px);
-      opacity: 0.8;
-      pointer-events: none;
+    .content:hover {
+      transform: scale(1.02);
+      box-shadow: inset 0 0 60px rgba(0,255,255,0.3), 0 0 40px rgba(255,0,255,0.2);
+    }
+
+    input[type="text"] {
+      padding: 12px;
+      font-size: 1em;
+      margin-top: 10px;
+      border: 2px solid #00fff2;
+      background-color: #1a1a1a;
+      color: #ffffff;
+      border-radius: 12px;
+      width: 100%;
+      box-shadow: 0 0 12px #00fff2;
+    }
+
+    .emoji-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .emoji-buttons button {
+      background-color: #111;
+      color: #00fff2;
+      border: 2px solid #00fff2;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 10px #00fff2;
+      width: 100%;
+      font-size: 0.9em;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 8px 12px;
+      max-width: 100%;
+      text-align: left;
+      gap: 10px;
+      perspective: 800px;
+    }
+
+    .emoji-buttons button:hover {
+      background-color: #00fff2;
+      color: #111;
+      transform: scale(1.05);
+    }
+
+    .emoji-buttons button.selected {
+      border-color: #ff00ff !important;
+      background: linear-gradient(135deg, rgba(255, 0, 255, 0.1), rgba(0, 255, 255, 0.05));
+      box-shadow: 0 0 20px #ff00ff, 0 0 40px rgba(255, 0, 255, 0.3);
+      animation: shimmerGlow 1.6s infinite ease-in-out;
+    }
+
+    .pulseOnce {
+      animation: pulsePop 0.5s ease;
+    }
+
+    .emoji-buttons button .emoji {
+      font-size: 1.5em;
+      flex-shrink: 0;
+    }
+
+    .emoji-buttons button .text {
+      font-size: 0.75em;
+      line-height: 1.2em;
+    }
+
+    .final-submit {
+      margin-top: 15px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: transparent;
+      color: #00fff2;
+      border: 2px solid #00fff2;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 0 10px #00fff2;
+    }
+
+    .final-submit:hover {
+      background-color: #00fff2;
+      color: #111;
+      transform: scale(1.05);
+    }
+
+    @keyframes neon-glow {
+      0% {
+        text-shadow: 0 0 15px #ff00ff, 0 0 5px #00fff2;
+      }
+      100% {
+        text-shadow: 0 0 25px #00fff2, 0 0 10px #ff00ff;
+      }
+    }
+
+    @keyframes shimmerGlow {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff00ff;
+      }
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 30px #ff00ff, 0 0 60px rgba(255, 0, 255, 0.4);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff00ff;
+      }
+    }
+
+    @keyframes pulsePop {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 8px #ff00ff;
+      }
+      30% {
+        transform: scale(1.08);
+        box-shadow: 0 0 20px #ff00ff, 0 0 40px #ff00ff;
+      }
+      60% {
+        transform: scale(0.98);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ff00ff;
+      }
     }
   </style>
 </head>
