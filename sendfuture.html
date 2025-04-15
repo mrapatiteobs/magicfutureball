@@ -27,14 +27,21 @@
       border-radius: 50%;
       width: 400px;
       max-width: 90vw;
-      height: 400px;
+      height: auto;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       box-shadow: inset 0 0 40px rgba(0,255,255,0.2), 0 0 25px rgba(255,0,255,0.1);
       backdrop-filter: blur(12px);
-      padding: 20px;
+      padding: 30px 20px;
+    }
+
+    h2 {
+      font-family: 'Major Mono Display', monospace;
+      color: #00fff2;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #ff00ff;
     }
 
     input, textarea {
@@ -77,11 +84,13 @@
       margin-top: 40px;
       font-size: 0.75em;
       color: #cccccc;
+      text-align: center;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
-  <h2 style="font-family: 'Major Mono Display', monospace; color: #00fff2;">🔮 Send a Message to Your Future 🔮</h2>
+  <h2>🔮 Send a Message to Your Future 🔮</h2>
 
   <div class="orb">
     <form id="futureForm">
@@ -104,15 +113,12 @@
     form.addEventListener("submit", function(e) {
       e.preventDefault();
       const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+      const email = encodeURIComponent(formData.get("email"));
+      const message = encodeURIComponent(formData.get("message"));
 
-      fetch("https://script.google.com/macros/s/AKfycbxQgiuR-A1d4JW1DdViVzaSQQIbZ5z4aXp529iCBVsSz8XhR6Cugwn4KMCG_KjhCyNm/exec", {
-        method: "POST",
-        body: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      const url = `https://script.google.com/macros/s/AKfycbxQgiuR-A1d4JW1DdViVzaSQQIbZ5z4aXp529iCBVsSz8XhR6Cugwn4KMCG_KjhCyNm/exec?email=${email}&message=${message}`;
+
+      fetch(url)
         .then((res) => res.json())
         .then((res) => {
           if (res.success) {
