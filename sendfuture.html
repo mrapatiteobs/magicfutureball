@@ -3,75 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Send to Your Future Self</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&family=Major+Mono+Display&display=swap" rel="stylesheet">
+  <title>Send Your Future Message</title>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       padding: 0;
       background: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%);
-      color: #ffffff;
-      font-family: 'Major Mono Display', monospace;
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      text-align: center;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 40px 20px;
-      text-align: center;
+      justify-content: center;
+      padding: 20px;
+      overflow-x: hidden;
     }
 
-    h1 {
-      color: #00fff2;
-      text-shadow: 0 0 12px #ff00ff;
-      margin-bottom: 20px;
-      font-size: clamp(1.5rem, 5vw, 2rem);
+    .orb {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 50%;
+      width: 400px;
+      max-width: 90vw;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      box-shadow: inset 0 0 40px rgba(0,255,255,0.2), 0 0 25px rgba(255,0,255,0.1);
+      backdrop-filter: blur(12px);
+      padding: 20px;
     }
 
-    .orb-frame {
-      max-width: 600px;
-      width: 100%;
-      margin: 20px auto;
-      box-shadow: 0 0 40px rgba(0,255,255,0.3);
-      border-radius: 16px;
-      overflow: hidden;
-      background-color: #000000;
+    input, textarea {
+      width: 90%;
+      max-width: 280px;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: 2px solid #00fff2;
+      background-color: #1a1a1a;
+      color: white;
+      font-size: 0.95em;
     }
 
-    iframe {
-      width: 100%;
-      height: 600px;
+    button {
+      padding: 10px 20px;
+      background: linear-gradient(90deg, #00fff2, #ff00ff);
+      color: black;
+      font-weight: bold;
       border: none;
-      background-color: #000;
+      border-radius: 10px;
+      margin-top: 10px;
+      cursor: pointer;
+      box-shadow: 0 0 15px #ff00ff;
+      transition: transform 0.3s ease;
     }
 
-    .note {
-      font-size: 0.8em;
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .confirmation {
       margin-top: 20px;
-      color: #bbbbbb;
+      font-size: 0.9em;
+      color: #00fff2;
+      display: none;
     }
 
     .footer {
       margin-top: 40px;
       font-size: 0.75em;
-      color: #888888;
-      text-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
+      color: #cccccc;
     }
   </style>
 </head>
 <body>
-  <h1>💌 Send a Message to Your Future Self</h1>
+  <h2 style="font-family: 'Major Mono Display', monospace; color: #00fff2;">🔮 Send a Message to Your Future 🔮</h2>
 
-  <div class="orb-frame">
-    <iframe src="https://www.futureme.org/partners/letter" allowfullscreen></iframe>
-  </div>
-
-  <div class="note">
-    ✨ Note: Only 1 email per user. First come, first served.
+  <div class="orb">
+    <form id="futureForm">
+      <input type="email" name="email" placeholder="Enter your email" required><br>
+      <textarea name="message" rows="4" placeholder="Write your message to the future..." required></textarea><br>
+      <button type="submit">Send to the Future</button>
+    </form>
+    <div class="confirmation" id="confirmation">✨ Message sent! Your future self will thank you. ✨</div>
   </div>
 
   <div class="footer">
-    This is a project by Tan Sebastian 🪄
+    Note: Only 1 email per user. First come first serve.<br>
+    This is a project by Tan Sebastian.
   </div>
+
+  <script>
+    const form = document.getElementById("futureForm");
+    const confirmation = document.getElementById("confirmation");
+
+    form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      fetch("https://script.google.com/macros/s/AKfycbxQgiuR-A1d4JW1DdViVzaSQQIbZ5z4aXp529iCBVsSz8XhR6Cugwn4KMCG_KjhCyNm/exec", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.success) {
+            confirmation.style.display = "block";
+            form.reset();
+          } else {
+            alert("Something went wrong.");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("Failed to send message.");
+        });
+    });
+  </script>
 </body>
 </html>
