@@ -167,7 +167,7 @@ What’s going through your mind right now?<br>
   </div>
 
   <div id="recaptcha-container"></div>
-  <button id="submitBtn" onclick="submitFeeling()">Submit</button>
+  <button id="submitBtn" onclick="submitFeeling()">Submit & let's talk to your future self !</button>
 
   <script>
     let selectedEmoji = "";
@@ -213,8 +213,7 @@ What’s going through your mind right now?<br>
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          alert(`✅ Thank you, ${username}! All the best!`);
-          window.location.href = "index.html";
+          window.location.href = "sendfuture.html";
         } else {
           grecaptcha.reset();
           alert("❌ reCAPTCHA failed or something went wrong.");
