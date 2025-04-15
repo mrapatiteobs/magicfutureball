@@ -136,6 +136,18 @@
         padding: 10px 20px;
       }
     }
+    .credit {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65em;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Quicksand', sans-serif;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.1);
+  z-index: 2;
+}
+
   </style>
 </head>
 <body>
@@ -154,7 +166,7 @@
 
   <div id="recaptcha-container"></div>
   <button id="submitBtn" onclick="submitFeeling()">Submit</button>
- <p class="credit">This is a project by Tan Sebastian</p>
+
   <script>
     let selectedEmoji = "";
 
@@ -219,5 +231,6 @@
       }
     };
   </script>
+   <p class="credit">This is a project by Tan Sebastian</p>
 </body>
 </html>
