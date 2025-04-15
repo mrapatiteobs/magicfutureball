@@ -302,9 +302,10 @@ input::placeholder {
       })
       .then(response => response.json())
       .then(data => {
-        if (data.success) {
-          alert(`Hi ${username}! Thank you for your response. FYI only your Username and Feelings will be recorded.`);
-          window.location.href = 'emoji.html';
+      if (data.success) {
+  window.location.href = 'emoji.html';
+}
+
         } else {
           grecaptcha.reset();
           alert(data.message || '❌ reCAPTCHA failed or something went wrong.');
