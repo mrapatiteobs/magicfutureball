@@ -1,6 +1,6 @@
 <!DOCTYPE html>
  <html lang="en">
- <audio id="selectSound" src="https://freesound.org/data/previews/341/341695_5260877-lq.mp3"></audio>
+   <audio id="selectSound" src="https://freesound.org/data/previews/341/341695_5260877-lq.mp3"></audio>
  
  <head>
    <meta charset="UTF-8" />
@@ -98,10 +98,10 @@
  }
  
  @keyframes typingPulse {
-   0%   { content: 'your name'; }
-   33%  { content: 'your name.'; }
-   66%  { content: 'your name..'; }
-   100% { content: 'your name...; }
+   0%   { content: 'type your name'; }
+   33%  { content: 'type your name, select your emoji,'; }
+   66%  { content: 'type your name, select your emoji, wait 3s'; }
+   100% { content: 'type your name, select your emoji, wait 3s'..; }
  }
  
      .emoji-buttons {
@@ -217,6 +217,7 @@
    <header>Would you like to see your future 👁 ?</header>
    <div class="content">
      <p style="margin: 10px 0 5px;">Your name ✍️:</p>
+     <input type="text" id="usernameInput" placeholder="type your name, select your feeling, wait 3s..">
      <input type="text" id="usernameInput" placeholder="your name..">
  
      <p style="font-size: 1em; margin-top: 10px; text-align: center;">Your current feeling about the future</p>
