@@ -114,16 +114,13 @@
       e.preventDefault();
       const formData = new FormData(form);
 
-      fetch("https://script.google.com/macros/s/AKfycbxQgiuR-A1d4JW1DdViVzaSQQIbZ5z4aXp529iCBVsSz8XhR6Cugwn4KMCG_KjhCyNm/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: formData.get("email"),
-          message: formData.get("message")
-        }),
-      })
+      fetch("https://email-api-one-chi.vercel.app", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, message })
+})
+
+    
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
