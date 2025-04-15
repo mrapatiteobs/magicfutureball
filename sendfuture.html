@@ -3,156 +3,75 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Send to the Future</title>
-  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <title>Send to Your Future Self</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Exo:wght@400;700&family=Major+Mono+Display&display=swap" rel="stylesheet">
   <style>
     body {
+      margin: 0;
+      padding: 0;
       background: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%);
       color: #ffffff;
       font-family: 'Major Mono Display', monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 5vh 5vw;
+      justify-content: flex-start;
       min-height: 100vh;
-      position: relative;
-      overflow-x: hidden;
+      padding: 40px 20px;
       text-align: center;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      width: 90vw;
-      max-width: 600px;
-      height: 90vw;
-      max-height: 600px;
-      background: radial-gradient(circle, rgba(255,255,255,0.05), rgba(128,0,255,0.03), transparent 80%);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 0 100px rgba(0,255,255,0.3), 0 0 180px rgba(255,0,255,0.2);
-      animation: pulseOrb 6s infinite ease-in-out;
-      z-index: 0;
-    }
-
-    @keyframes pulseOrb {
-      0%, 100% {
-        box-shadow: 0 0 80px rgba(0,255,255,0.3), 0 0 160px rgba(255,0,255,0.2);
-      }
-      50% {
-        box-shadow: 0 0 140px rgba(0,255,255,0.6), 0 0 260px rgba(255,0,255,0.4);
-      }
     }
 
     h1 {
       color: #00fff2;
-      text-shadow: 0 0 15px #ff00ff;
-      font-size: clamp(1.5em, 5vw, 2em);
-      margin-bottom: 25px;
-      z-index: 1;
+      text-shadow: 0 0 12px #ff00ff;
+      margin-bottom: 20px;
+      font-size: clamp(1.5rem, 5vw, 2rem);
     }
 
-    form {
-      background: rgba(255, 255, 255, 0.06);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 18px rgba(0, 255, 255, 0.2);
+    .orb-frame {
+      max-width: 600px;
       width: 100%;
-      max-width: 420px;
-      backdrop-filter: blur(10px);
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      z-index: 1;
+      margin: 20px auto;
+      box-shadow: 0 0 40px rgba(0,255,255,0.3);
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: #000000;
     }
 
-    input, textarea {
-      padding: 12px;
-      border: 2px solid #00fff2;
-      border-radius: 10px;
-      background: #111;
-      color: #fff;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.9em;
-      box-shadow: 0 0 8px #00fff2;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-
-    button {
-      background: linear-gradient(90deg, #00fff2, #ff00ff);
-      color: #000;
-      font-weight: bold;
-      padding: 12px;
+    iframe {
+      width: 100%;
+      height: 600px;
       border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 1em;
-      box-shadow: 0 0 14px rgba(0, 255, 255, 0.8);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
+      background-color: #000;
     }
 
     .note {
-      font-size: 0.75em;
-      color: #ffccff;
-      background: rgba(255, 0, 255, 0.1);
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 10px;
+      font-size: 0.8em;
+      margin-top: 20px;
+      color: #bbbbbb;
     }
 
-    .credit {
+    .footer {
+      margin-top: 40px;
       font-size: 0.75em;
-      color: #aaa;
-      margin-top: 60px;
-      text-align: center;
+      color: #888888;
+      text-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
     }
   </style>
 </head>
 <body>
-  <h1>🔮 Send Your Message to the Future</h1>
+  <h1>💌 Send a Message to Your Future Self</h1>
 
-  <form id="futureForm">
-    <input type="email" id="user_email" placeholder="Your email (future delivery)" required />
-    <textarea id="message" placeholder="What do you want future-you to read?" required></textarea>
-    <button type="submit">Send to the Future ✨</button>
-    <div class="note">
-      ⚠️ Note: only 1 email per user. First come, first served!
-    </div>
-  </form>
-
-  <div class="credit">
-    This is a project by Tan Sebastian
+  <div class="orb-frame">
+    <iframe src="https://www.futureme.org/partners/letter" allowfullscreen></iframe>
   </div>
 
-  <script>
-    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your actual EmailJS public key
+  <div class="note">
+    ✨ Note: Only 1 email per user. First come, first served.
+  </div>
 
-    document.getElementById('futureForm').addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
-        user_email: document.getElementById('user_email').value,
-        message: document.getElementById('message').value
-      }).then(function () {
-        alert('✅ Your message has been sent to the future!');
-        document.getElementById('futureForm').reset();
-      }, function (error) {
-        alert('❌ Failed to send. Please try again.');
-        console.error('EmailJS error:', error);
-      });
-    });
-  </script>
+  <div class="footer">
+    This is a project by Tan Sebastian 🪄
+  </div>
 </body>
 </html>
