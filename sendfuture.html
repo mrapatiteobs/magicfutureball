@@ -1,107 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Send to Your Future Self</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Send to the Future</title>
+  <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <style>
     body {
       background: radial-gradient(circle at center, #000000 0%, #0a0a0a 100%);
-      color: #00fff2;
-      font-family: 'Orbitron', sans-serif;
-      margin: 0;
-      padding: 2rem;
+      color: #ffffff;
+      font-family: 'Major Mono Display', monospace;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      height: 100vh;
+      padding: 5vh 5vw;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
       text-align: center;
     }
 
+    body::before {
+      content: "";
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 90vw;
+      max-width: 600px;
+      height: 90vw;
+      max-height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.05), rgba(128,0,255,0.03), transparent 80%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 0 100px rgba(0,255,255,0.3), 0 0 180px rgba(255,0,255,0.2);
+      animation: pulseOrb 6s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes pulseOrb {
+      0%, 100% {
+        box-shadow: 0 0 80px rgba(0,255,255,0.3), 0 0 160px rgba(255,0,255,0.2);
+      }
+      50% {
+        box-shadow: 0 0 140px rgba(0,255,255,0.6), 0 0 260px rgba(255,0,255,0.4);
+      }
+    }
+
     h1 {
-      font-size: 1.6rem;
-      margin-bottom: 1rem;
-      text-shadow: 0 0 10px #ff00ff;
+      color: #00fff2;
+      text-shadow: 0 0 15px #ff00ff;
+      font-size: clamp(1.5em, 5vw, 2em);
+      margin-bottom: 25px;
+      z-index: 1;
     }
 
     form {
+      background: rgba(255, 255, 255, 0.06);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 18px rgba(0, 255, 255, 0.2);
+      width: 100%;
+      max-width: 420px;
+      backdrop-filter: blur(10px);
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      width: 90%;
-      max-width: 400px;
-      z-index: 2;
+      gap: 15px;
+      z-index: 1;
+    }
+
+    input, textarea {
+      padding: 12px;
+      border: 2px solid #00fff2;
+      border-radius: 10px;
+      background: #111;
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.9em;
+      box-shadow: 0 0 8px #00fff2;
     }
 
     textarea {
-      padding: 1rem;
-      border-radius: 10px;
-      border: 2px solid #00fff2;
-      background: #1a1a1a;
-      color: white;
-      resize: none;
-      font-size: 1rem;
-      font-family: inherit;
+      resize: vertical;
+      min-height: 100px;
     }
 
     button {
-      padding: 0.8rem;
       background: linear-gradient(90deg, #00fff2, #ff00ff);
-      border: none;
-      color: black;
+      color: #000;
       font-weight: bold;
+      padding: 12px;
+      border: none;
       border-radius: 10px;
-      font-size: 1rem;
       cursor: pointer;
-      box-shadow: 0 0 15px rgba(255, 0, 255, 0.4);
-      transition: transform 0.3s ease;
+      font-size: 1em;
+      box-shadow: 0 0 14px rgba(0, 255, 255, 0.8);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     button:hover {
       transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 0, 255, 0.8);
     }
 
-    #confirmation {
-      display: none;
-      margin-top: 2rem;
-      color: #ffffff;
-      font-size: 1.1rem;
-      animation: fadeIn 1s ease forwards;
+    .note {
+      font-size: 0.75em;
+      color: #ffccff;
+      background: rgba(255, 0, 255, 0.1);
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 10px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    .credit {
+      font-size: 0.75em;
+      color: #aaa;
+      margin-top: 60px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>🌀 Send a message to your future self</h1>
+  <h1>🔮 Send Your Message to the Future</h1>
+
   <form id="futureForm">
-    <textarea name="message" id="message" rows="6" placeholder="Dear Future Me..." required></textarea>
-    <button type="submit">Send to the Future 🚀</button>
+    <input type="email" id="user_email" placeholder="Your email (future delivery)" required />
+    <textarea id="message" placeholder="What do you want future-you to read?" required></textarea>
+    <button type="submit">Send to the Future ✨</button>
+    <div class="note">
+      ⚠️ Note: only 1 email per user. First come, first served!
+    </div>
   </form>
-  <div id="confirmation">✅ Message sent into the time stream!</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <div class="credit">
+    This is a project by Tan Sebastian
+  </div>
+
   <script>
-    (function() {
-      emailjs.init("8nIWP8SvgXrj_sFig"); // replace with your EmailJS public key
-    })();
+    emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your actual EmailJS public key
 
-    document.getElementById('futureForm').addEventListener('submit', function(e) {
+    document.getElementById('futureForm').addEventListener('submit', function (e) {
       e.preventDefault();
 
-      emailjs.send("service_qq1sidj", "template_ls1ta4t", {
-        message: document.getElementById("message").value
-      }).then(function(response) {
-        document.getElementById("futureForm").reset();
-        document.getElementById("confirmation").style.display = "block";
-      }, function(error) {
-        alert("❌ Something went wrong. Try again later.");
-        console.error(error);
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', {
+        user_email: document.getElementById('user_email').value,
+        message: document.getElementById('message').value
+      }).then(function () {
+        alert('✅ Your message has been sent to the future!');
+        document.getElementById('futureForm').reset();
+      }, function (error) {
+        alert('❌ Failed to send. Please try again.');
+        console.error('EmailJS error:', error);
       });
     });
   </script>
