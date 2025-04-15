@@ -213,7 +213,7 @@ What’s going through your mind right now?<br>
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          alert(`✅ Thank you, ${username}! Your feeling has been recorded.`);
+          alert(`✅ Thank you, ${username}! All the best!`);
           window.location.href = "index.html";
         } else {
           grecaptcha.reset();
