@@ -106,36 +106,41 @@
     This is a project by Tan Sebastian.
   </div>
 
-  <script>
-    const form = document.getElementById("futureForm");
-    const confirmation = document.getElementById("confirmation");
+<script>
+  const form = document.getElementById("futureForm");
+  const confirmation = document.getElementById("confirmation");
 
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      
-      const email = document.getElementById("email").value;
-      const message = document.getElementById("message").value;
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
 
-      fetch("https://email-api-one-chi.vercel.app/api/email", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, message })
-})
- 
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.success) {
-          confirmation.style.display = "block";
-          form.reset();
-        } else {
-          alert("Something went wrong.");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        alert("Failed to send message.");
-      });
+    fetch("https://email-api-one-chi.vercel.app/api/email", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, message })
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.success) {
+        confirmation.style.display = "block";
+        form.reset();
+
+        // ⏳ Wait 2 seconds then redirect
+        setTimeout(() => {
+          window.location.href = "https://mrapatiteobs.github.io/magicfutureball/";
+        }, 2000);
+      } else {
+        alert("Something went wrong.");
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      alert("Failed to send message.");
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
