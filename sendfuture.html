@@ -116,11 +116,12 @@
       const email = document.getElementById("email").value;
       const message = document.getElementById("message").value;
 
-      fetch("https://email-api-one-chi.vercel.app", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, message })
-      })
+      fetch("fetch("https://email-api-one-chi.vercel.app/api/email", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, message })
+})
+ 
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
