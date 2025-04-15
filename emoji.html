@@ -127,6 +127,18 @@
       transform: scale(1.1);
       box-shadow: 0px 0px 30px rgba(255, 0, 255, 1);
     }
+    .credit {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65em;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Quicksand', sans-serif;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.1);
+  z-index: 2;
+}
+
   </style>
 </head>
 <body>
@@ -142,7 +154,7 @@
   <div class="emojis" id="emojiContainer"></div>
 
   <button onclick="saveSelection()">Next</button>
-   <p class="credit">This is a project by Tan Sebastian</p>
+
   
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -189,5 +201,7 @@
       }
     }
   </script>
+  <p class="credit">This is a project by Tan Sebastian</p>
+
 </body>
 </html>
