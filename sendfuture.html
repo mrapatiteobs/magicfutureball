@@ -131,14 +131,19 @@
       submitBtn.disabled = true;
       submitBtn.textContent = "Sending...";
 
-      fetch("https://script.google.com/macros/s/AKfycbxQgiuR-A1d4JW1DdViVzaSQQIbZ5z4aXp529iCBVsSz8XhR6Cugwn4KMCG_KjhCyNm/exec", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: `email=${email}&message=${message}`
-      })
-        .then((res) => res.json())
+      fetch("https://script.google.com/macros/s/AKfycbx.../exec", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    email: userEmail,
+    message: userMessage
+  }),
+})
+
+
+            .then((res) => res.json())
         .then((res) => {
           if (res.success) {
             confirmation.style.display = "block";
