@@ -125,6 +125,18 @@
       border-top: 1px solid #00ffcc;
       padding-top: 5px;
     }
+    .credit {
+  position: fixed;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65em;
+  color: rgba(255, 255, 255, 0.4);
+  font-family: 'Quicksand', sans-serif;
+  text-shadow: 0 0 5px rgba(0, 255, 255, 0.1);
+  z-index: 2;
+}
+
   </style>
 </head>
 <body>
@@ -3725,6 +3737,8 @@ function startTyping(lines, index = 0, onComplete) {
       }
     };
   </script>
+  <p class="credit">This is a project by Tan Sebastian</p>
+
 </body>
 </html>
 
