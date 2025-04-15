@@ -94,8 +94,8 @@
 
   <div class="orb">
     <form id="futureForm">
-      <input type="email" name="email" placeholder="Enter your email" required><br>
-      <textarea name="message" rows="4" placeholder="Write your message to the future..." required></textarea><br>
+      <input type="email" name="email" id="email" placeholder="Enter your email" required><br>
+      <textarea name="message" id="message" rows="4" placeholder="Write your message to the future..." required></textarea><br>
       <button type="submit">Send to the Future</button>
     </form>
     <div class="confirmation" id="confirmation">✨ Message sent!✨</div>
@@ -112,15 +112,15 @@
 
     form.addEventListener("submit", function(e) {
       e.preventDefault();
-      const formData = new FormData(form);
+      
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
 
       fetch("https://email-api-one-chi.vercel.app", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, message })
-})
-
-    
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, message })
+      })
       .then((res) => res.json())
       .then((res) => {
         if (res.success) {
