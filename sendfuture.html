@@ -69,26 +69,15 @@
       transition: transform 0.3s ease;
     }
 
-    button:hover:enabled {
+    button:hover {
       transform: scale(1.05);
-    }
-
-    button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
     }
 
     .confirmation {
       margin-top: 20px;
       font-size: 0.9em;
       color: #00fff2;
-      animation: fadeIn 1s ease-in-out;
       display: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
     }
 
     .footer {
@@ -107,9 +96,9 @@
     <form id="futureForm">
       <input type="email" name="email" placeholder="Enter your email" required><br>
       <textarea name="message" rows="4" placeholder="Write your message to the future..." required></textarea><br>
-      <button type="submit" id="submitBtn">Send to the Future</button>
+      <button type="submit">Send to the Future</button>
     </form>
-    <div class="confirmation" id="confirmation">✨ Message sent! ✨</div>
+    <div class="confirmation" id="confirmation">✨ Message sent!✨</div>
   </div>
 
   <div class="footer">
@@ -120,46 +109,34 @@
   <script>
     const form = document.getElementById("futureForm");
     const confirmation = document.getElementById("confirmation");
-    const submitBtn = document.getElementById("submitBtn");
 
-    form.addEventListener("submit", function (e) {
+    form.addEventListener("submit", function(e) {
       e.preventDefault();
       const formData = new FormData(form);
-      const email = encodeURIComponent(formData.get("email"));
-      const message = encodeURIComponent(formData.get("message"));
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending...";
-
-      fetch("https://script.google.com/macros/s/AKfycbx.../exec", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    email: userEmail,
-    message: userMessage
-  }),
-})
-
-
-            .then((res) => res.json())
-        .then((res) => {
-          if (res.success) {
-            confirmation.style.display = "block";
-            form.reset();
-          } else {
-            alert("Something went wrong.");
-          }
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Send to the Future";
-        })
-        .catch((err) => {
-          console.error(err);
-          alert("Failed to send message.");
-          submitBtn.disabled = false;
-          submitBtn.textContent = "Send to the Future";
-        });
+      fetch("https://script.google.com/macros/s/AKfycbxQgiuR-A1d4JW1DdViVzaSQQIbZ5z4aXp529iCBVsSz8XhR6Cugwn4KMCG_KjhCyNm/exec", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: formData.get("email"),
+          message: formData.get("message")
+        }),
+      })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          confirmation.style.display = "block";
+          form.reset();
+        } else {
+          alert("Something went wrong.");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Failed to send message.");
+      });
     });
   </script>
 </body>
