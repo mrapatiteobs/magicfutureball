@@ -97,6 +97,8 @@
       <input type="email" name="email" id="email" placeholder="Enter your email" required><br>
       <textarea name="message" id="message" rows="4" placeholder="Write your message to the future..." required></textarea><br>
       <button type="submit">Send to the Future</button>
+      <button type="button" onclick="skipEmail()">I don’t want to send an email now</button>
+
     </form>
     <div class="confirmation" id="confirmation">✨ Message sent!✨</div>
   </div>
@@ -140,6 +142,10 @@
       alert("Failed to send message.");
     });
   });
+  function skipEmail() {
+  window.location.href = "https://mrapatiteobs.github.io/magicfutureball/final";
+}
+
 </script>
 
 </body>
